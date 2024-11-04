@@ -1,0 +1,6 @@
+qmk compile -c -kb crkbd -km manna-harbour_miryoku \
+  -e MIRYOKU_ALPHAS=QWERTY \
+  -e MIRYOKU_EXTRA=COLEMAKDH \
+  -e MIRYOKU_NAV=VI \
+  -e MIRYOKU_CLIPBOARD=MAC
+
