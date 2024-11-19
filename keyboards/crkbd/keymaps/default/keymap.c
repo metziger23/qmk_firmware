@@ -87,7 +87,7 @@ const rgblight_segment_t PROGMEM my_layer0[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 0, HSV_ORANGE}
 );
 const rgblight_segment_t PROGMEM my_layer1[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 7, HSV_RED}
+    {0, 7, HSV_MAGENTA}
 );
 const rgblight_segment_t PROGMEM my_layer2[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 7, HSV_GREEN}
