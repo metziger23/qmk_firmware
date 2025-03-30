@@ -36,3 +36,40 @@ XXX,   XXX,   XXX,   K32,   K33,   K34,   K35,   K36,   XXX, XXX, XXX, K37 \
 // right half is the master
 /* #define MASTER_RIGHT */
 #define MASTER_RIGHT
+
+// REPL layer for QMK
+#define MIRYOKU_LAYER_REPL \
+KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
+KC_LGUI,          KC_LALT,          KC_LCTL,          KC_LSFT,          KC_G,             KC_M,             KC_N,             KC_E,             KC_I,             KC_O,             \
+KC_Z,             KC_RALT,          KC_C,             KC_D,             KC_V,             KC_K,             KC_H,             KC_COMM,          KC_DOT,           KC_SLSH,          \
+U_NP,             U_NP,             KC_LSFT,          KC_LSFT,          KC_LSFT,          KC_ENT,           KC_BSPC,          KC_DEL,           U_NP,             U_NP
+
+// REPR layer for QMK
+#define MIRYOKU_LAYER_REPR \
+KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
+KC_A,             KC_R,             KC_S,             KC_T,             KC_G,             KC_M,             KC_LSFT,          KC_LCTL,          KC_LALT,          KC_LGUI,          \
+KC_Z,             KC_X,             KC_C,             KC_D,             KC_V,             KC_K,             KC_H,             KC_COMM,          KC_RALT,          KC_SLSH,          \
+U_NP,             U_NP,             U_NP,             KC_SPC,           KC_TAB,           KC_LSFT,          KC_LSFT,          U_NP,             U_NP,             U_NP
+
+#define MIRYOKU_LAYER_LIST \
+MIRYOKU_X(BASE,   "Base") \
+MIRYOKU_X(EXTRA,  "Extra") \
+MIRYOKU_X(TAP,    "Tap") \
+MIRYOKU_X(BUTTON, "Button") \
+MIRYOKU_X(NAV,    "Nav") \
+MIRYOKU_X(MOUSE,  "Mouse") \
+MIRYOKU_X(MEDIA,  "Media") \
+MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(SYM,    "Sym") \
+MIRYOKU_X(FUN,    "Fun") \
+MIRYOKU_X(REPL,   "RepL") \
+MIRYOKU_X(REPR,   "RepR")
+
+#define MIRYOKU_LAYERMAPPING_REPL MIRYOKU_MAPPING
+#define MIRYOKU_LAYERMAPPING_REPR MIRYOKU_MAPPING
+
+#define MIRYOKU_LAYER_NUM \
+KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC,           U_NA,              TD(U_TD_U_BASE),   TD(U_TD_U_EXTRA),  TD(U_TD_U_TAP),    TD(U_TD_BOOT),     \
+KC_SCLN,           KC_4,              KC_5,              KC_6,              KC_EQL,            U_NA,              LSFT_T(KC_LEFT),   LCTL_T(KC_DOWN),   LALT_T(KC_UP),     LGUI_T(KC_RIGHT),  \
+KC_GRV,            KC_1,              KC_2,              KC_3,              KC_BSLS,           U_NA,              TD(U_TD_U_NUM),    TD(U_TD_U_NAV),    KC_ALGR,           U_NA,              \
+U_NP,              U_NP,              KC_DOT,            KC_0,              KC_MINS,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
