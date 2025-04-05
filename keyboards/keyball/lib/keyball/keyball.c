@@ -25,9 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
-const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
-const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
-const uint8_t SCROLL_DIV_MAX = 7;
+const uint8_t CPI_DEFAULT         = KEYBALL_CPI_DEFAULT / 100;
+const uint8_t SNIPER_CPI_DEFAULT = KEYBALL_SNIPER_CPI_DEFAULT / 100;
+const uint8_t CPI_MAX             = pmw3360_MAXCPI + 1;
+const uint8_t SCROLL_DIV_MAX      = 7;
 
 const uint16_t AML_TIMEOUT_MIN = 100;
 const uint16_t AML_TIMEOUT_MAX = 1000;
@@ -729,6 +730,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SSNP_FRE:
                 keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
                 break;
+            case SNIPER_MO:
+                keyball_set_cpi(SNIPER_CPI_DEFAULT);
+                break;
 #endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -753,6 +757,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return true;
         }
         return false;
+    } else {
+        switch (keycode) {
+            case SNIPER_MO:
+                keyball_set_cpi(CPI_DEFAULT);
+                break;
+            default:
+                return true;
+        }
     }
 
     return true;

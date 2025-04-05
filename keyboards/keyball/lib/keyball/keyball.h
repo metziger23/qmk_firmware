@@ -21,7 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configurations
 
 #ifndef KEYBALL_CPI_DEFAULT
-#    define KEYBALL_CPI_DEFAULT 500
+#    define KEYBALL_CPI_DEFAULT 1000
+#endif
+
+#ifndef KEYBALL_SNIPER_CPI_DEFAULT
+#    define KEYBALL_SNIPER_CPI_DEFAULT 200
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
@@ -115,6 +119,7 @@ enum keyball_keycodes {
     AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
     AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
 
+    SNIPER_MO = QK_KB_16,  // Momentary sniper mode
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
