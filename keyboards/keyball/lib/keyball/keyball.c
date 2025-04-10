@@ -669,6 +669,27 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             // process_auto_mouse may use this in future, if changed order of
             // processes.
             return true;
+        case SNIPER_MO:
+            keyball_set_sniper_mode(record->event.pressed);
+            return true;
+        case SCRL_MO_VRT:
+            {
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+                keyball_set_scroll_mode(record->event.pressed);
+                return true;
+            }
+        case SCRL_MO_HOR:
+            {
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
+                keyball_set_scroll_mode(record->event.pressed);
+                return true;
+            }
+        case SCRL_MO_FRE:
+            {
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
+                keyball_set_scroll_mode(record->event.pressed);
+                return true;
+            }
     }
 
     // process events which works on pressed only.
@@ -730,9 +751,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SSNP_FRE:
                 keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
                 break;
-            case SNIPER_MO:
-                keyball_set_cpi(SNIPER_CPI_DEFAULT);
-                break;
 #endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
@@ -757,14 +775,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 return true;
         }
         return false;
-    } else {
-        switch (keycode) {
-            case SNIPER_MO:
-                keyball_set_cpi(CPI_DEFAULT);
-                break;
-            default:
-                return true;
-        }
     }
 
     return true;
@@ -791,3 +801,8 @@ uint8_t mod_config(uint8_t mod) {
 }
 
 #endif
+
+void keyball_set_sniper_mode(bool mode)
+{
+   keyball_set_cpi(mode ? SNIPER_CPI_DEFAULT : CPI_DEFAULT);
+}

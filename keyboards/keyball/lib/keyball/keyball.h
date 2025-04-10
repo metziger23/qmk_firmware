@@ -20,12 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //////////////////////////////////////////////////////////////////////////////
 // Configurations
 
+#include "keyboard.h"
+#include "keycodes.h"
+#include "report.h"
 #ifndef KEYBALL_CPI_DEFAULT
-#    define KEYBALL_CPI_DEFAULT 1000
+#    define KEYBALL_CPI_DEFAULT 600
 #endif
 
 #ifndef KEYBALL_SNIPER_CPI_DEFAULT
-#    define KEYBALL_SNIPER_CPI_DEFAULT 200
+#    define KEYBALL_SNIPER_CPI_DEFAULT 300
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
@@ -119,7 +122,11 @@ enum keyball_keycodes {
     AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
     AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
 
-    SNIPER_MO = QK_KB_16,  // Momentary sniper mode
+    SNIPER_MO   = QK_KB_16,  // Momentary sniper mode
+    SCRL_MO_VRT = QK_KB_17,
+    SCRL_MO_HOR = QK_KB_18,
+    SCRL_MO_FRE = QK_KB_19,
+
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
@@ -275,3 +282,5 @@ uint8_t keyball_get_cpi(void);
 /// In addition, if you do not upload SROM, the maximum value will be limited
 /// to 34 (3500CPI).
 void keyball_set_cpi(uint8_t cpi);
+
+void keyball_set_sniper_mode(bool mode);
