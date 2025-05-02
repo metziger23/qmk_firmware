@@ -6,6 +6,9 @@
 
 #define XXX KC_NO
 
+#define PERMISSIVE_HOLD
+#define CHORDAL_HOLD
+
 // clang-format off
 #define LAYOUT_miryoku( \
 K00,   K01,   K02,   K03,   K04,          K05,   K06,   K07,   K08,   K09, \
