@@ -88,10 +88,10 @@ KC_Z,         KC_X,         KC_C,               KC_V,             KC_B,         
 U_NP,         U_NP,         LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_TAB), LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL), U_NP,         U_NP
 
 #define MIRYOKU_LAYER_NUM \
-KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC,           U_NA,              U_NA,              U_NA,              U_NA,              TD(U_TD_BOOT),     \
-KC_SCLN,           KC_4,              KC_5,              KC_6,              KC_EQL,            KC_LGUI,           LSFT_T(KC_LEFT),   LCTL_T(KC_DOWN),   LALT_T(KC_UP),     RALT_T(KC_RIGHT),  \
-KC_GRV,            KC_1,              KC_2,              KC_3,              KC_BSLS,           U_NA,              U_NA,              KC_MEH,            KC_HYPR,           U_NA,              \
-U_NP,              U_NP,              KC_DOT,            KC_0,              KC_MINS,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
+KC_LBRC, KC_7, KC_8,   KC_9, KC_RBRC, U_NA,           U_NA,            U_NA,          U_NA,             TD(U_TD_BOOT), \
+KC_SCLN, KC_4, KC_5,   KC_6, KC_EQL,  MEH_T(KC_LEFT), LSFT_T(KC_DOWN), LCTL_T(KC_UP), LALT_T(KC_RIGHT), KC_LGUI,       \
+KC_GRV,  KC_1, KC_2,   KC_3, KC_BSLS, U_NA,           U_NA,            U_NA,          U_NA,             U_NA,          \
+U_NP,    U_NP, KC_DOT, KC_0, KC_MINS, U_NA,           U_NA,            U_NA,          U_NP,             U_NP
 
 #define MIRYOKU_LAYER_MOUSE \
 TD(U_TD_BOOT),     U_NA,              U_NA,              U_NA,              U_NA,              U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
