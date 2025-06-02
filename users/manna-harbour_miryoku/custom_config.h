@@ -82,7 +82,7 @@ MIRYOKU_X(SFTFUN, "SftFun")
 #define MIRYOKU_LAYER_BASE \
 KC_Q,         KC_W,         KC_E,               LT(U_REPL,KC_R),  KC_T,               KC_Y,             LT(U_REPR,KC_U),   KC_I,             KC_O,         KC_P,            \
 LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),       LSFT_T(KC_F),     MEH_T(KC_G),        MEH_T(KC_H),      LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L), LGUI_T(KC_COLN), \
-KC_Z,         KC_X,         KC_C,               KC_V,             KC_B,               KC_N,             LT(U_FUN,KC_M),    KC_COMM,          KC_DOT,       KC_SLSH,\
+KC_Z,         KC_X,         KC_C,               KC_V,             KC_B,               KC_N,             LT(U_FUN,KC_M),    KC_COMM,          KC_DOT,       KC_SLSH,         \
 U_NP,         U_NP,         LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_TAB), LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL), U_NP,         U_NP
 
 #define MIRYOKU_LAYER_NUM \
@@ -111,7 +111,7 @@ KC_F10, KC_F1, KC_F2,  KC_F3,  KC_PAUS, U_NA,   U_NA,    U_NA,    U_NA,    U_NA,
 U_NP,   U_NP,  KC_APP, KC_SPC, KC_TAB,  U_NA,   U_NA,    U_NA,    U_NP,    U_NP
 
 #define MIRYOKU_LAYER_NAV \
-TD(U_TD_BOOT), U_NA,    U_NA,    U_NA,    U_NA,   LCTL_T(KC_B), LCTL_T(KC_D), LCTL_T(KC_U), LCTL_T(KC_F), U_NA     \
+TD(U_TD_BOOT), U_NA,    U_NA,    U_NA,    U_NA,   LCTL_T(KC_B), LCTL_T(KC_D), LCTL_T(KC_U), LCTL_T(KC_F), U_NA,    \
 KC_LGUI,       KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_LEFT,      KC_DOWN,      KC_UP,        KC_RGHT,      CW_TOGG, \
 U_NA,          U_NA,    U_NA,    U_NA,    U_NA,   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       KC_INS,  \
 U_NP,          U_NP,    U_NA,    U_NA,    U_NA,   KC_ENT,       KC_BSPC,      KC_DEL,       U_NP,         U_NP
