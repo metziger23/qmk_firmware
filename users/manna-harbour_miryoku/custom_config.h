@@ -40,25 +40,27 @@ XXX,   XXX,   XXX,   K32,   K33,   K34,   K35,   K36,   XXX, XXX, XXX, K37 \
 /* #define MASTER_RIGHT */
 #define MASTER_RIGHT
 
+// TODO: changed KC_QUOT
+
 // REPL layer for QMK
 #define MIRYOKU_LAYER_REPL \
-KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
-KC_RALT,          KC_LALT,          KC_LCTL,          KC_LSFT,          KC_LGUI,          KC_M,             KC_N,             KC_E,             KC_I,             KC_O,             \
-KC_Z,             KC_HYPR,          KC_MEH,           KC_D,             KC_V,             KC_K,             KC_H,             KC_COMM,          KC_DOT,           KC_SLSH,          \
-U_NP,             U_NP,             KC_ESC,           KC_SPC,           KC_TAB,           KC_ENT,           KC_BSPC,          KC_DEL,           U_NP,             U_NP
+KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P, \
+KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_H,   KC_J,    KC_K     KC_L,   KC_QUOT,\
+KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,\
+U_NP,    U_NP,    KC_ESC,  KC_SPC,  KC_TAB, KC_ENT, KC_BSPC, KC_DEL,  U_NP,   U_NP
 
 // REPR layer for QMK
 #define MIRYOKU_LAYER_REPR \
-KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
-KC_A,             KC_R,             KC_S,             KC_T,             KC_G,             KC_LGUI,          KC_LSFT,          KC_LCTL,          KC_LALT,          KC_RALT,          \
-KC_Z,             KC_X,             KC_C,             KC_D,             KC_V,             KC_K,             KC_H,             KC_MEH,           KC_HYPR,          KC_SLSH,          \
-U_NP,             U_NP,             KC_ESC,           KC_SPC,           KC_TAB,           KC_ENT,           KC_BSPC,          KC_DEL,           U_NP,             U_NP
+KC_Q, KC_W, KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    \
+KC_A, KC_R, KC_S,   KC_T,   KC_G,   KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, \
+KC_Z, KC_X, KC_C,   KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,\
+U_NP, U_NP, KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL,  U_NP,    U_NP
 
 #define MIRYOKU_LAYER_SFTFUN \
-LSFT(KC_F12),     LSFT(KC_F7),      LSFT(KC_F8),      LSFT(KC_F9),      LSFT(KC_PSCR),    U_NA,             U_NA,             U_NA,             U_NA,             TD(U_TD_BOOT),    \
-LSFT(KC_F11),     LSFT(KC_F4),      LSFT(KC_F5),      LSFT(KC_F6),      LSFT(KC_SCRL),    LSFT(KC_LGUI),    KC_LSFT,          LSFT(KC_LCTL),    LSFT(KC_LALT),    LSFT(KC_RALT),    \
-LSFT(KC_F10),     LSFT(KC_F1),      LSFT(KC_F2),      LSFT(KC_F3),      LSFT(KC_PAUS),    U_NA,             U_NA,             KC_MEH,           KC_HYPR,          U_NA,             \
-U_NP,             U_NP,             LSFT(KC_APP),     LSFT(KC_SPC),     LSFT(KC_TAB),     U_NA,             U_NA,             U_NA,             U_NP,             U_NP
+LSFT(KC_F12), LSFT(KC_F7), LSFT(KC_F8),  LSFT(KC_F9),  LSFT(KC_PSCR), U_NA,   U_NA,    U_NA,          U_NA,          TD(U_TD_BOOT), \
+LSFT(KC_F11), LSFT(KC_F4), LSFT(KC_F5),  LSFT(KC_F6),  LSFT(KC_SCRL), KC_MEH, KC_LSFT, LSFT(KC_LCTL), LSFT(KC_LALT), LSFT(KC_LGUI), \
+LSFT(KC_F10), LSFT(KC_F1), LSFT(KC_F2),  LSFT(KC_F3),  LSFT(KC_PAUS), U_NA,   U_NA,    U_NA,          U_NA,          U_NA,          \
+U_NP,         U_NP,        LSFT(KC_APP), LSFT(KC_SPC), LSFT(KC_TAB),  U_NA,   U_NA,    U_NA,          U_NP,          U_NP
 
 #define MIRYOKU_LAYER_LIST \
 MIRYOKU_X(BASE,   "Base") \
@@ -80,10 +82,10 @@ MIRYOKU_X(SFTFUN, "SftFun")
 #define MIRYOKU_LAYERMAPPING_SFTFUN MIRYOKU_MAPPING
 
 #define MIRYOKU_LAYER_BASE \
-KC_Q,              KC_W,              KC_F,              LT(U_REPL, KC_P),  KC_B,              LT(U_SFTFUN, KC_J),LT(U_REPR, KC_L),  KC_U,              KC_Y,              KC_QUOT,           \
-RALT_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      LGUI_T(KC_G),      LGUI_T(KC_M),      LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      RALT_T(KC_O),      \
-KC_Z,              HYPR_T(KC_X),      MEH_T(KC_C),       KC_D,              LSG_T(KC_V),       LSG_T(KC_K),       LT(U_FUN,KC_H),    MEH_T(KC_COMM),    HYPR_T(KC_DOT),    KC_SLSH,           \
-U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),LT(U_SYM,KC_ENT),  LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
+KC_Q,         KC_W,         KC_E,               LT(U_REPL,KC_R),  KC_T,               KC_Y,             LT(U_REPR,KC_U),   KC_I,             KC_O,         KC_P,            \
+LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),       LSFT_T(KC_F),     MEH_T(KC_G),        MEH_T(KC_H),      LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L), LGUI_T(KC_QUOT), \
+KC_Z,         KC_X,         KC_C,               KC_V,             KC_B,               KC_N,             LT(U_FUN,KC_M),    KC_COMM,          KC_DOT,       KC_SLSH,\
+U_NP,         U_NP,         LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_TAB), LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL), U_NP,         U_NP
 
 #define MIRYOKU_LAYER_NUM \
 KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC,           U_NA,              U_NA,              U_NA,              U_NA,              TD(U_TD_BOOT),     \
