@@ -92,9 +92,9 @@ KC_GRV,  KC_1, KC_2,   KC_3, KC_BSLS, U_NA,           U_NA,            U_NA,    
 U_NP,    U_NP, KC_DOT, KC_0, KC_MINS, U_NA,           U_NA,            U_NA,          U_NP,             U_NP
 
 #define MIRYOKU_LAYER_MOUSE \
-TD(U_TD_BOOT), U_NA,    U_NA,    U_NA,    U_NA,      U_RDO,   U_PST,   U_CPY,       U_CUT,       U_UND,   \
-KC_LGUI,       KC_LALT, KC_LCTL, KC_LSFT, SNIPER_MO, KC_BTN3, KC_BTN1, SCRL_MO_VRT, KC_BTN2,     U_NA,    \
-U_NA,          U_NA,    U_NA,    U_NA,    U_NA,      U_NU,    KC_BTN4, SCRL_MO_FRE, SCRL_MO_HOR, KC_BTN5, \
+TD(U_TD_BOOT), U_NA,    U_NA,    U_NA,    U_NA,      U_RDO,   U_PST,   U_CPY,       U_CUT,       U_UND,       \
+KC_LGUI,       KC_LALT, KC_LCTL, KC_LSFT, SNIPER_MO, KC_BTN3, KC_BTN1, SCRL_MO_VRT, KC_BTN2,     SCRL_MO_FRE, \
+U_NA,          U_NA,    U_NA,    U_NA,    U_NA,      U_NU,    KC_BTN4, KC_BTN5,     SCRL_MO_HOR, U_NA,        \
 U_NP,          U_NP,    U_NA,    U_NA,    U_NA,      KC_BTN2, KC_BTN1, KC_BTN3,     U_NP,        U_NP
 
 #define MIRYOKU_LAYER_MEDIA \
