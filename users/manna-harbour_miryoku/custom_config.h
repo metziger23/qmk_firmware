@@ -41,11 +41,11 @@ XXX,   XXX,   XXX,   K32,   K33,   K34,   K35,   K36,   XXX, XXX, XXX, K37 \
 #define MASTER_RIGHT
 
 // REPL layer for QMK
-#define MIRYOKU_LAYER_REPL \
-KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P, \
-KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_H,   KC_J,    KC_K     KC_L,   KC_COLN,\
-KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,\
-U_NP,    U_NP,    KC_ESC,  KC_SPC,  KC_TAB, KC_ENT, KC_BSPC, KC_DEL,  U_NP,   U_NP
+#define  MIRYOKU_LAYER_REPL \
+KC_Q,    KC_W,              KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P, \
+KC_LGUI, KC_LALT,           KC_LCTL, KC_LSFT, KC_MEH, KC_H,   KC_J,    KC_K,    KC_L,   KC_COLN,\
+KC_Z,    KC_X,              KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,\
+U_NP,    U_NP,              KC_ESC,  KC_SPC,  KC_TAB, KC_ENT, KC_BSPC, KC_DEL,  U_NP,   U_NP
 
 // REPR layer for QMK
 #define MIRYOKU_LAYER_REPR \
