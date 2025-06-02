@@ -40,12 +40,10 @@ XXX,   XXX,   XXX,   K32,   K33,   K34,   K35,   K36,   XXX, XXX, XXX, K37 \
 /* #define MASTER_RIGHT */
 #define MASTER_RIGHT
 
-// TODO: changed KC_QUOT
-
 // REPL layer for QMK
 #define MIRYOKU_LAYER_REPL \
 KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P, \
-KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_H,   KC_J,    KC_K     KC_L,   KC_QUOT,\
+KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_H,   KC_J,    KC_K     KC_L,   KC_COLN,\
 KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH,\
 U_NP,    U_NP,    KC_ESC,  KC_SPC,  KC_TAB, KC_ENT, KC_BSPC, KC_DEL,  U_NP,   U_NP
 
@@ -83,7 +81,7 @@ MIRYOKU_X(SFTFUN, "SftFun")
 
 #define MIRYOKU_LAYER_BASE \
 KC_Q,         KC_W,         KC_E,               LT(U_REPL,KC_R),  KC_T,               KC_Y,             LT(U_REPR,KC_U),   KC_I,             KC_O,         KC_P,            \
-LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),       LSFT_T(KC_F),     MEH_T(KC_G),        MEH_T(KC_H),      LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L), LGUI_T(KC_QUOT), \
+LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D),       LSFT_T(KC_F),     MEH_T(KC_G),        MEH_T(KC_H),      LSFT_T(KC_J),      LCTL_T(KC_K),     LALT_T(KC_L), LGUI_T(KC_COLN), \
 KC_Z,         KC_X,         KC_C,               KC_V,             KC_B,               KC_N,             LT(U_FUN,KC_M),    KC_COMM,          KC_DOT,       KC_SLSH,\
 U_NP,         U_NP,         LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_TAB), LT(U_SYM,KC_ENT), LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL), U_NP,         U_NP
 
@@ -120,6 +118,6 @@ U_NP,          U_NP,    U_NA,    U_NA,    U_NA,   KC_ENT,       KC_BSPC,      KC
 
 #define MIRYOKU_LAYER_SYM \
 KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, U_NA,   U_NA,    U_NA,    U_NA,    TD(U_TD_BOOT), \
-KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,       \
+KC_QUOT, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,       \
 KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,   U_NA,    U_NA,    U_NA,    U_NA,          \
 U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,    U_NA,    U_NP,    U_NP
