@@ -119,7 +119,7 @@ U_NA,          U_NA,    U_NA,    U_NA,    U_NA,   KC_HOME,      KC_PGDN,      KC
 U_NP,          U_NP,    U_NA,    U_NA,    U_NA,   KC_ENT,       KC_BSPC,      KC_DEL,       U_NP,         U_NP
 
 #define MIRYOKU_LAYER_SYM \
-KC_LCBR,           KC_AMPR,           KC_ASTR,           KC_LPRN,           KC_RCBR,           U_NA,              U_NA,              U_NA,              U_NA,              TD(U_TD_BOOT),     \
-KC_COLN,           KC_DLR,            KC_PERC,           KC_CIRC,           KC_PLUS,           KC_LGUI,           KC_LSFT,           KC_LCTL,           KC_LALT,           KC_RALT,           \
-KC_TILD,           KC_EXLM,           KC_AT,             KC_HASH,           KC_PIPE,           U_NA,              U_NA,              KC_MEH,            KC_HYPR,           U_NA,              \
-U_NP,              U_NP,              KC_LPRN,           KC_RPRN,           KC_UNDS,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
+KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, U_NA,   U_NA,    U_NA,    U_NA,    TD(U_TD_BOOT), \
+KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,       \
+KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,   U_NA,    U_NA,    U_NA,    U_NA,          \
+U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,    U_NA,    U_NP,    U_NP
