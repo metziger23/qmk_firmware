@@ -113,10 +113,10 @@ KC_F10, KC_F1, KC_F2,  KC_F3,  KC_PAUS, U_NA,   U_NA,    U_NA,    U_NA,    U_NA,
 U_NP,   U_NP,  KC_APP, KC_SPC, KC_TAB,  U_NA,   U_NA,    U_NA,    U_NP,    U_NP
 
 #define MIRYOKU_LAYER_NAV \
-TD(U_TD_BOOT),     U_NA,              U_NA,              U_NA,              U_NA,              U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
-KC_RALT,           KC_LALT,           KC_LCTL,           KC_LSFT,           KC_LGUI,           CW_TOGG,           KC_LEFT,           KC_DOWN,           KC_UP,             KC_RGHT,           \
-U_NA,              KC_HYPR,           KC_MEH,            U_NA,              U_NA,              KC_INS,            KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            \
-U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_ENT,            KC_BSPC,           KC_DEL,            U_NP,              U_NP
+TD(U_TD_BOOT), U_NA,    U_NA,    U_NA,    U_NA,   LCTL_T(KC_B), LCTL_T(KC_D), LCTL_T(KC_U), LCTL_T(KC_F), U_NA     \
+KC_LGUI,       KC_LALT, KC_LCTL, KC_LSFT, KC_MEH, KC_LEFT,      KC_DOWN,      KC_UP,        KC_RGHT,      CW_TOGG, \
+U_NA,          U_NA,    U_NA,    U_NA,    U_NA,   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       KC_INS,  \
+U_NP,          U_NP,    U_NA,    U_NA,    U_NA,   KC_ENT,       KC_BSPC,      KC_DEL,       U_NP,         U_NP
 
 #define MIRYOKU_LAYER_SYM \
 KC_LCBR,           KC_AMPR,           KC_ASTR,           KC_LPRN,           KC_RCBR,           U_NA,              U_NA,              U_NA,              U_NA,              TD(U_TD_BOOT),     \
