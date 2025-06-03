@@ -87,7 +87,7 @@ U_NP,         U_NP,         LT(U_MEDIA,KC_ESC), LT(U_NAV,KC_SPC), LT(U_MOUSE,KC_
 
 #define MIRYOKU_LAYER_NUM \
 KC_LBRC, KC_7, KC_8,   KC_9, KC_RBRC, U_NA,           U_NA,            U_NA,          U_NA,             TD(U_TD_BOOT), \
-KC_SCLN, KC_4, KC_5,   KC_6, KC_EQL,  MEH_T(KC_LEFT), LSFT_T(KC_DOWN), LCTL_T(KC_UP), LALT_T(KC_RIGHT), KC_LGUI,       \
+KC_QUOT, KC_4, KC_5,   KC_6, KC_EQL,  MEH_T(KC_LEFT), LSFT_T(KC_DOWN), LCTL_T(KC_UP), LALT_T(KC_RIGHT), KC_LGUI,       \
 KC_GRV,  KC_1, KC_2,   KC_3, KC_BSLS, U_NA,           U_NA,            U_NA,          U_NA,             U_NA,          \
 U_NP,    U_NP, KC_DOT, KC_0, KC_MINS, U_NA,           U_NA,            U_NA,          U_NP,             U_NP
 
@@ -118,6 +118,6 @@ U_NP,          U_NP,    U_NA,    U_NA,    U_NA,   KC_ENT,       KC_BSPC,      KC
 
 #define MIRYOKU_LAYER_SYM \
 KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, U_NA,   U_NA,    U_NA,    U_NA,    TD(U_TD_BOOT), \
-KC_QUOT, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,       \
+KC_DQUO, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,       \
 KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,   U_NA,    U_NA,    U_NA,    U_NA,          \
 U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,   U_NA,    U_NA,    U_NP,    U_NP
