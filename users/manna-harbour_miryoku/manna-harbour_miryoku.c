@@ -121,3 +121,35 @@ combo_t key_combos[] = {
     COMBO(mute_combo_sym,      KC_MUTE),
 };
 
+#include "keymap_russian.h"
+
+static bool is_lang_switched = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == LANG_SWITCH && record->event.pressed) {
+        // Press Cmd/Win key
+        register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key
+        // Press Space
+        register_code(KC_SPACE);
+
+        is_lang_switched = !is_lang_switched;
+
+        // Release Space
+        unregister_code(KC_SPACE);
+        // Release Cmd/Win key
+        unregister_code(KC_LGUI);
+
+        return false; // Skip further processing of this key
+    }
+    if (is_lang_switched && get_mods() & MOD_MASK_SHIFT && keycode == KC_Y && record->event.pressed) {
+
+        register_code(KC_LSFT); // KC_LGUI is the left Cmd/Win key
+        register_code(RU_YERU);
+        unregister_code(RU_YERU);
+        unregister_code(KC_LSFT);
+
+        return false; // Skip further processing of this key
+    }
+
+    return true; // Process other keycodes normally
+}

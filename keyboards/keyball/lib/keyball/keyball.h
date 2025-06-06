@@ -126,6 +126,7 @@ enum keyball_keycodes {
     SCRL_MO_VRT = QK_KB_17,
     SCRL_MO_HOR = QK_KB_18,
     SCRL_MO_FRE = QK_KB_19,
+    LANG_SWITCH = QK_KB_20,
 
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
