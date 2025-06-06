@@ -41,4 +41,4 @@
   #define EXTRA_SHORT_COMBOS
 #endif
 
-#define COMBO_TERM 50  // Time in milliseconds to recognize combo
+#define COMBO_TERM 25  // Time in milliseconds to recognize combo
