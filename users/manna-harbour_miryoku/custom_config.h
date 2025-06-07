@@ -82,7 +82,7 @@ MIRYOKU_X(SFTFUN, "SftFun")
 #define MIRYOKU_LAYER_BASE \
 KC_Q,              KC_W,              KC_F,              LT(U_REPL, KC_P),  KC_B,              KC_J,              LT(U_REPR, KC_L),  KC_U,              KC_Y,              KC_QUOT,           \
 LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              LT(U_SFTFUN, KC_M),LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),      \
-KC_Z,              HYPR_T(KC_X),      MEH_T(KC_C),       KC_D,              LSG_T(KC_V),       LSG_T(KC_K),       LT(U_FUN,KC_H),    MEH_T(KC_COMM),    HYPR_T(KC_DOT),    KC_SLSH,           \
+KC_Z,              HYPR_T(KC_X),      MEH_T(KC_C),       KC_D,              KC_V,              KC_K,              LT(U_FUN,KC_H),    MEH_T(KC_COMM),    HYPR_T(KC_DOT),    KC_SLSH,           \
 U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),LT(U_SYM,KC_ENT),  LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
 
 #define MIRYOKU_LAYER_NUM \
