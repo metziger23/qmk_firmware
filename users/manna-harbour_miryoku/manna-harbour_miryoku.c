@@ -6,6 +6,7 @@
 #include QMK_KEYBOARD_H
 
 #include "manna-harbour_miryoku.h"
+#include "keymap_russian.h"
 
 
 // Additional Features double tap guard
@@ -97,27 +98,27 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
     'L', 'L', 'L', 'L', 'L', 'L',   'R', 'R',           'R'
 );
 
-const uint16_t PROGMEM mute_combo_base[]     = {KC_F, LT(U_REPL, KC_P), COMBO_END};
-const uint16_t PROGMEM del_combo_base[]      = {LT(U_REPR, KC_L), KC_U, COMBO_END};
-const uint16_t PROGMEM mute_combo_rep[]      = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM del_combo_rep[]       = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM mute_combo_sftfun[]   = {LSFT(KC_F8), LSFT(KC_F9), COMBO_END};
-const uint16_t PROGMEM mute_combo_num[]      = {KC_8, KC_9, COMBO_END};
-const uint16_t PROGMEM del_combo_mouse_nav[] = {U_PST, U_CPY, COMBO_END};
-const uint16_t PROGMEM del_combo_media[]     = {RGB_MOD, RGB_HUI, COMBO_END};
-const uint16_t PROGMEM mute_combo_fun[]      = {KC_F8, KC_F9, COMBO_END};
-const uint16_t PROGMEM mute_combo_sym[]      = {KC_ASTR, KC_LPRN, COMBO_END};
-
-combo_t key_combos[] = {
-    COMBO(mute_combo_base,     KC_MUTE),
-    COMBO(del_combo_base,      KC_DEL),
-    COMBO(mute_combo_rep,      KC_MUTE),
-    COMBO(del_combo_rep,       KC_DEL),
-    COMBO(mute_combo_sftfun,   KC_MUTE),
-    COMBO(mute_combo_num,      KC_MUTE),
-    COMBO(del_combo_mouse_nav, KC_DEL),
-    COMBO(del_combo_media,     KC_DEL),
-    COMBO(mute_combo_fun,      KC_MUTE),
-    COMBO(mute_combo_sym,      KC_MUTE),
-};
+/* const uint16_t PROGMEM mute_combo_base[]     = {KC_F, LT(U_REPL, KC_P), COMBO_END}; */
+/* const uint16_t PROGMEM del_combo_base[]      = {LT(U_REPR, KC_L), KC_U, COMBO_END}; */
+/* const uint16_t PROGMEM mute_combo_rep[]      = {KC_F, KC_P, COMBO_END}; */
+/* const uint16_t PROGMEM del_combo_rep[]       = {KC_L, KC_U, COMBO_END}; */
+/* const uint16_t PROGMEM mute_combo_sftfun[]   = {LSFT(KC_F8), LSFT(KC_F9), COMBO_END}; */
+/* const uint16_t PROGMEM mute_combo_num[]      = {KC_8, KC_9, COMBO_END}; */
+/* const uint16_t PROGMEM del_combo_mouse_nav[] = {U_PST, U_CPY, COMBO_END}; */
+/* const uint16_t PROGMEM del_combo_media[]     = {RGB_MOD, RGB_HUI, COMBO_END}; */
+/* const uint16_t PROGMEM mute_combo_fun[]      = {KC_F8, KC_F9, COMBO_END}; */
+/* const uint16_t PROGMEM mute_combo_sym[]      = {KC_ASTR, KC_LPRN, COMBO_END}; */
+/**/
+/* combo_t key_combos[] = { */
+/*     COMBO(mute_combo_base,     KC_MUTE), */
+/*     COMBO(del_combo_base,      KC_DEL), */
+/*     COMBO(mute_combo_rep,      KC_MUTE), */
+/*     COMBO(del_combo_rep,       KC_DEL), */
+/*     COMBO(mute_combo_sftfun,   KC_MUTE), */
+/*     COMBO(mute_combo_num,      KC_MUTE), */
+/*     COMBO(del_combo_mouse_nav, KC_DEL), */
+/*     COMBO(del_combo_media,     KC_DEL), */
+/*     COMBO(mute_combo_fun,      KC_MUTE), */
+/*     COMBO(mute_combo_sym,      KC_MUTE), */
+/* }; */
 
