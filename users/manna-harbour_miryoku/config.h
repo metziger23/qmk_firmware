@@ -7,6 +7,10 @@
 
 #include "custom_config.h"
 
+#define COMBO_MUST_TAP_PER_COMBO 1
+
+#define COMBO_TERM 25  // Time in milliseconds to recognize combo
+
 // default but used in macros
 #undef TAPPING_TERM
 #define TAPPING_TERM 170
@@ -40,5 +44,3 @@
   #define COMBO_TERM 200
   #define EXTRA_SHORT_COMBOS
 #endif
-
-#define COMBO_TERM 25  // Time in milliseconds to recognize combo

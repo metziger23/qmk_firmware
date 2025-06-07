@@ -132,21 +132,21 @@ static bool is_lang_switched = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     is_lang_switched = !is_lang_switched;
-    /* if (keycode == LANG_SWITCH && record->event.pressed) { */
-    /*     // Press Cmd/Win key */
-    /*     register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key */
-    /*     // Press Space */
-    /*     register_code(KC_SPACE); */
-    /**/
-    /*     is_lang_switched = !is_lang_switched; */
-    /**/
-    /*     // Release Space */
-    /*     unregister_code(KC_SPACE); */
-    /*     // Release Cmd/Win key */
-    /*     unregister_code(KC_LGUI); */
-    /**/
-    /*     return false; // Skip further processing of this key */
-    /* } */
+    if (keycode == LANG_SWITCH && record->event.pressed) {
+        // Press Cmd/Win key
+        register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key
+        // Press Space
+        register_code(KC_SPACE);
+
+        is_lang_switched = !is_lang_switched;
+
+        // Release Space
+        unregister_code(KC_SPACE);
+        // Release Cmd/Win key
+        unregister_code(KC_LGUI);
+
+        return false; // Skip further processing of this key
+    }
     /* if (is_lang_switched && get_mods() & MOD_MASK_SHIFT && keycode == KC_Y && record->event.pressed) { */
     /**/
     /*     register_code(KC_LSFT); // KC_LGUI is the left Cmd/Win key */
@@ -160,9 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true; // Process other keycodes normally
 }
 
-#define COMBO_MUST_TAP_PER_COMBO
-
-#ifdef COMBO_MUST_TAP_PER_COMBO
 bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     // If you want all combos to be tap-only, just uncomment the next line
     // return true
@@ -182,4 +179,3 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     return false;
 
 }
-#endif
