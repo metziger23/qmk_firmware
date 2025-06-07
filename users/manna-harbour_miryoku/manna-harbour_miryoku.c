@@ -122,3 +122,64 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 /*     COMBO(mute_combo_sym,      KC_MUTE), */
 /* }; */
 
+const uint16_t PROGMEM lang_switch_combo[] = {LSFT_T(KC_N), LCTL_T(KC_E), COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(lang_switch_combo, LANG_SWITCH),
+};
+
+static bool is_lang_switched = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    is_lang_switched = !is_lang_switched;
+    /* if (keycode == LANG_SWITCH && record->event.pressed) { */
+    /*     // Press Cmd/Win key */
+    /*     register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key */
+    /*     // Press Space */
+    /*     register_code(KC_SPACE); */
+    /**/
+    /*     is_lang_switched = !is_lang_switched; */
+    /**/
+    /*     // Release Space */
+    /*     unregister_code(KC_SPACE); */
+    /*     // Release Cmd/Win key */
+    /*     unregister_code(KC_LGUI); */
+    /**/
+    /*     return false; // Skip further processing of this key */
+    /* } */
+    /* if (is_lang_switched && get_mods() & MOD_MASK_SHIFT && keycode == KC_Y && record->event.pressed) { */
+    /**/
+    /*     register_code(KC_LSFT); // KC_LGUI is the left Cmd/Win key */
+    /*     register_code(RU_YERU); */
+    /*     unregister_code(RU_YERU); */
+    /*     unregister_code(KC_LSFT); */
+    /**/
+    /*     return false; // Skip further processing of this key */
+    /* } */
+    /**/
+    return true; // Process other keycodes normally
+}
+
+#define COMBO_MUST_TAP_PER_COMBO
+
+#ifdef COMBO_MUST_TAP_PER_COMBO
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
+    // If you want all combos to be tap-only, just uncomment the next line
+    // return true
+
+    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
+    uint16_t key;
+    uint8_t idx = 0;
+    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+        switch (key) {
+            case QK_MOD_TAP...QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
+            case QK_MOMENTARY...QK_MOMENTARY_MAX:
+                return true;
+        }
+        idx += 1;
+    }
+    return false;
+
+}
+#endif
