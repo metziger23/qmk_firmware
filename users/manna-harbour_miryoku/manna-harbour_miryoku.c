@@ -156,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LGUI);
 
         return false; // Skip further processing of this key
-    } else if (is_lang_switched && keycode == KC_J && record->event.pressed) {
+    } else if (is_lang_switched && record->event.pressed) {
         int ru_key = get_ru_sym(keycode);
         if (!ru_key) return true;
         tap_code16(ru_key);
@@ -196,6 +196,7 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
 }
 
 int get_ru_sym(int eng_sym) {
+    bool is_shifted = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
     switch (eng_sym) {
         case KC_Q: return RU_YU;
         case KC_W: return RU_ZHE;
@@ -205,7 +206,7 @@ int get_ru_sym(int eng_sym) {
         case KC_J: return RU_SHTI;
         case KC_L: return RU_EL;
         case KC_U: return RU_U;
-        case KC_Y: return RU_YERU;
+        case KC_Y: { if (is_shifted) return RU_YO; return RU_YERU;}
         case KC_QUOTE: return RU_YA;
         case KC_A: return RU_A;
         case KC_R: return RU_ER;
@@ -217,17 +218,16 @@ int get_ru_sym(int eng_sym) {
         case KC_E: return RU_IE;
         case KC_I: return RU_I;
         case KC_O: return RU_O;
-        case KC_Z: return RU_SOFT; /* TODO: add hard sign */
+        case KC_Z: { if (is_shifted) return RU_HARD; return RU_SOFT; }
         case KC_X: return RU_HA;
         case KC_C: return RU_ZE;
         case KC_D: return RU_DE;
         case KC_V: return RU_VE;
         case KC_K: return RU_KA;
         case KC_H: return RU_CHE;
-        /* TODO: shifted versions of these */
-        case KC_COMMA: return RU_COMM;
-        case KC_DOT: return RU_DOT;
-        case KC_SLSH: return RU_SLSH;
+        case KC_COMMA: { if (is_shifted) return RALT(S(KC_COMMA)); return RU_COMM;}
+        case KC_DOT: { if (is_shifted) return RALT(S(KC_DOT)); return RU_DOT;}
+        case KC_SLSH: { if (is_shifted) return RU_QUES; return RU_SLSH; }
     }
     return KC_NO;
 }
