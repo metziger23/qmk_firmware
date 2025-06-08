@@ -129,22 +129,37 @@ combo_t key_combos[] = {
 };
 
 static bool is_lang_switched = false;
+static bool lang_switching_started = false;
+int get_ru_sym(int eng_sym);
+
+uint32_t finish_lang_switching(uint32_t trigger_time, void *cb_arg) {
+    /* do something */
+    lang_switching_started = false;
+    return 0;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    is_lang_switched = !is_lang_switched;
-    if (keycode == LANG_SWITCH && record->event.pressed) {
-        // Press Cmd/Win key
-        register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key
-        // Press Space
-        register_code(KC_SPACE);
-
+    if (keycode == LANG_SWITCH && record->event.pressed && !lang_switching_started) {
         is_lang_switched = !is_lang_switched;
-
-        // Release Space
+        /* register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key */
+        /* register_code(KC_SPACE); */
+        /* tap_code16_delay(LGUI(KC_SPACE), 50); */
+        lang_switching_started = true;
+        defer_exec(30, finish_lang_switching, NULL);
+        register_code(KC_LGUI);
+        wait_ms(10);
+        register_code(KC_SPACE);
+        wait_ms(10);
         unregister_code(KC_SPACE);
-        // Release Cmd/Win key
+        wait_ms(10);
+
         unregister_code(KC_LGUI);
 
+        return false; // Skip further processing of this key
+    } else if (is_lang_switched && keycode == KC_J && record->event.pressed) {
+        int ru_key = get_ru_sym(keycode);
+        if (!ru_key) return true;
+        tap_code16(ru_key);
         return false; // Skip further processing of this key
     }
     /* if (is_lang_switched && get_mods() & MOD_MASK_SHIFT && keycode == KC_Y && record->event.pressed) { */
@@ -178,4 +193,41 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     }
     return false;
 
+}
+
+int get_ru_sym(int eng_sym) {
+    switch (eng_sym) {
+        case KC_Q: return RU_YU;
+        case KC_W: return RU_ZHE;
+        case KC_F: return RU_SHA;
+        case KC_P: return RU_PE;
+        case KC_B: return RU_BE;
+        case KC_J: return RU_SHTI;
+        case KC_L: return RU_EL;
+        case KC_U: return RU_U;
+        case KC_Y: return RU_YERU;
+        case KC_QUOTE: return RU_YA;
+        case KC_A: return RU_A;
+        case KC_R: return RU_ER;
+        case KC_S: return RU_ES;
+        case KC_T: return RU_TE;
+        case KC_G: return RU_GHE;
+        case KC_M: return RU_EM;
+        case KC_N: return RU_EN;
+        case KC_E: return RU_IE;
+        case KC_I: return RU_I;
+        case KC_O: return RU_O;
+        case KC_Z: return RU_SOFT; /* TODO: add hard sign */
+        case KC_X: return RU_HA;
+        case KC_C: return RU_ZE;
+        case KC_D: return RU_DE;
+        case KC_V: return RU_VE;
+        case KC_K: return RU_KA;
+        case KC_H: return RU_CHE;
+        /* TODO: shifted versions of these */
+        case KC_COMMA: return RU_COMM;
+        case KC_DOT: return RU_DOT;
+        case KC_SLSH: return RU_SLSH;
+    }
+    return KC_NO;
 }
