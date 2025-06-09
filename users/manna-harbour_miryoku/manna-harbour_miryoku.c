@@ -49,13 +49,30 @@ MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };
 
+static bool is_lang_switched = false;
+static bool lang_switching_started = false;
+int get_ru_sym(int eng_sym);
 
 // shift functions
 
 const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
 
+const key_override_t ru_hard_sign_key_override = {
+    .trigger_mods           = MOD_MASK_SHIFT,
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_SHIFT,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_Z,
+    .replacement            = RU_HARD,
+    .enabled                = &is_lang_switched
+};
+
 const key_override_t **key_overrides = (const key_override_t *[]){
     &capsword_key_override,
+    &ru_hard_sign_key_override,
     NULL
 };
 
@@ -127,10 +144,6 @@ const uint16_t PROGMEM lang_switch_combo[] = {LSFT_T(KC_N), LCTL_T(KC_E), COMBO_
 combo_t key_combos[] = {
     COMBO(lang_switch_combo, LANG_SWITCH),
 };
-
-static bool is_lang_switched = false;
-static bool lang_switching_started = false;
-int get_ru_sym(int eng_sym);
 
 uint32_t finish_lang_switching(uint32_t trigger_time, void *cb_arg) {
     /* do something */
@@ -226,7 +239,7 @@ int get_ru_sym(int eng_sym) {
         case KC_I: return RU_I;
         case LGUI_T(KC_O): return LGUI_T(RU_O);
         case KC_O: return RU_O;
-        case KC_Z: { if (is_shift_on) return RU_HARD; return RU_SOFT; }
+        case KC_Z: { if (is_shift_on) return KC_NO; return RU_SOFT; }
         case HYPR_T(KC_X): return HYPR_T(RU_HA);
         case KC_X: return RU_HA;
         case MEH_T(KC_C): return MEH_T(RU_ZE);
