@@ -156,7 +156,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LGUI);
 
         return false; // Skip further processing of this key
-    } else if (is_lang_switched && record->event.pressed) {
+    } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode))) {
         int ru_key = get_ru_sym(keycode);
         if (!ru_key) return true;
         tap_code16(ru_key);
