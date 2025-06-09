@@ -157,21 +157,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode))) {
+
+        bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+        bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+        bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+        if (is_ctrl_on || is_alt_on || is_gui_on) return true;
+
         int ru_key = get_ru_sym(keycode);
         if (!ru_key) return true;
         tap_code16(ru_key);
         return false; // Skip further processing of this key
     }
-    /* if (is_lang_switched && get_mods() & MOD_MASK_SHIFT && keycode == KC_Y && record->event.pressed) { */
-    /**/
-    /*     register_code(KC_LSFT); // KC_LGUI is the left Cmd/Win key */
-    /*     register_code(RU_YERU); */
-    /*     unregister_code(RU_YERU); */
-    /*     unregister_code(KC_LSFT); */
-    /**/
-    /*     return false; // Skip further processing of this key */
-    /* } */
-    /**/
+
     return true; // Process other keycodes normally
 }
 
