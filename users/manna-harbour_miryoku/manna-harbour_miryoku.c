@@ -196,7 +196,7 @@ bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
 }
 
 int get_ru_sym(int eng_sym) {
-    bool is_shifted = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+    bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
     switch (eng_sym) {
         case KC_Q: return RU_YU;
         case KC_W: return RU_ZHE;
@@ -208,7 +208,7 @@ int get_ru_sym(int eng_sym) {
         case LT(U_REPR, KC_L): return LT(U_REPR, RU_EL);
         case KC_L: return RU_EL;
         case KC_U: return RU_U;
-        case KC_Y: { if (is_shifted) return RU_YO; return RU_YERU;}
+        case KC_Y: { if (is_shift_on) return RU_YO; return RU_YERU;}
         case KC_QUOTE: return RU_YA;
         case LGUI_T(KC_A): return LGUI_T(RU_A);
         case KC_A: return RU_A;
@@ -229,7 +229,7 @@ int get_ru_sym(int eng_sym) {
         case KC_I: return RU_I;
         case LGUI_T(KC_O): return LGUI_T(RU_O);
         case KC_O: return RU_O;
-        case KC_Z: { if (is_shifted) return RU_HARD; return RU_SOFT; }
+        case KC_Z: { if (is_shift_on) return RU_HARD; return RU_SOFT; }
         case HYPR_T(KC_X): return HYPR_T(RU_HA);
         case KC_X: return RU_HA;
         case MEH_T(KC_C): return MEH_T(RU_ZE);
@@ -239,11 +239,11 @@ int get_ru_sym(int eng_sym) {
         case KC_K: return RU_KA;
         case LT(U_FUN,KC_H): return LT(U_FUN,RU_CHE);
         case KC_H: return RU_CHE;
-        case MEH_T(KC_COMM): { if (is_shifted) return RALT(S(MEH_T(KC_COMM))); return MEH_T(RU_COMM);}
-        case KC_COMMA: { if (is_shifted) return RALT(S(KC_COMMA)); return RU_COMM;}
-        case HYPR_T(KC_DOT): { if (is_shifted) return RALT(S(HYPR_T(KC_DOT))); return HYPR_T(RU_DOT);}
-        case KC_DOT: { if (is_shifted) return RALT(S(KC_DOT)); return RU_DOT;}
-        case KC_SLSH: { if (is_shifted) return RU_QUES; return RU_SLSH; }
+        case MEH_T(KC_COMM): { if (is_shift_on) return RALT(S(MEH_T(KC_COMM))); return MEH_T(RU_COMM);}
+        case KC_COMMA: { if (is_shift_on) return RALT(S(KC_COMMA)); return RU_COMM;}
+        case HYPR_T(KC_DOT): { if (is_shift_on) return RALT(S(HYPR_T(KC_DOT))); return HYPR_T(RU_DOT);}
+        case KC_DOT: { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
+        case KC_SLSH: { if (is_shift_on) return RU_QUES; return RU_SLSH; }
     }
     return KC_NO;
 }
