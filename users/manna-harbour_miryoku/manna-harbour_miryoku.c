@@ -151,6 +151,22 @@ uint32_t finish_lang_switching(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
+bool is_non_basic_symbol(uint16_t keycode) {
+    switch (keycode) {
+        case KC_LCBR: return true;
+        case KC_RCBR: return true;
+        case KC_COLN: return true;
+        case KC_AT: return true;
+        case KC_HASH: return true;
+        case KC_DLR: return true;
+        case KC_CIRC: return true;
+        case KC_AMPR: return true;
+
+        case KC_PIPE: return true;
+    }
+    return false;
+}
+
 bool is_bottom_row_ru_sym(uint16_t keycode) {
     return ( keycode == MY_RU_E || keycode == MY_RU_SHCH || keycode == MY_RU_EF || keycode == MY_RU_TSE);
 }
@@ -174,8 +190,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed &&
-        (record->tap.count || IS_BASIC_KEYCODE(keycode) || is_bottom_row_ru_sym(keycode))) {
-
+        (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
+        is_bottom_row_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
         bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
         bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
         bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
@@ -264,6 +280,23 @@ int get_ru_sym(int eng_sym) {
         case MY_RU_SHCH: return RU_SHCH;
         case MY_RU_EF: return RU_EF;
         case MY_RU_TSE: return RU_TSE;
+
+        case KC_LBRC: return RALT(KC_GRV);
+        case KC_RBRC: return S(RALT(KC_GRV));
+
+        case KC_LCBR: return S(RALT(KC_LPRN));
+        case KC_RCBR: return S(RALT(KC_RPRN));
+
+        case KC_SCLN: return RU_SCLN;
+        case KC_COLN: return RU_COLN;
+
+        case KC_AT: return RALT(KC_2);
+        case KC_HASH: return RALT(KC_3);
+        case KC_DLR: return RALT(KC_4);
+        case KC_CIRC: return RALT(KC_6);
+        case KC_AMPR: return RALT(KC_7);
+
+        case KC_PIPE: return S(RALT(KC_PIPE));
     }
     return KC_NO;
 }
