@@ -128,6 +128,11 @@ enum keyball_keycodes {
     SCRL_MO_FRE = QK_KB_19,
     LANG_SWITCH = QK_KB_20,
 
+    MY_RU_E    = QK_KB_21,
+    MY_RU_SHCH = QK_KB_22,
+    MY_RU_EF   = QK_KB_23,
+    MY_RU_TSE  = QK_KB_24,
+
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };

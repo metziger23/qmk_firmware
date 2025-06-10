@@ -151,6 +151,10 @@ uint32_t finish_lang_switching(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
+bool is_bottom_row_ru_sym(uint16_t keycode) {
+    return ( keycode == MY_RU_E || keycode == MY_RU_SHCH || keycode == MY_RU_EF || keycode == MY_RU_TSE);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LANG_SWITCH && record->event.pressed && !lang_switching_started) {
         is_lang_switched = !is_lang_switched;
@@ -169,7 +173,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LGUI);
 
         return false; // Skip further processing of this key
-    } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode))) {
+    } else if (is_lang_switched && record->event.pressed &&
+        (record->tap.count || IS_BASIC_KEYCODE(keycode) || is_bottom_row_ru_sym(keycode))) {
 
         bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
         bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
@@ -254,6 +259,11 @@ int get_ru_sym(int eng_sym) {
         case HYPR_T(KC_DOT): { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
         case KC_DOT: { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
         case KC_SLSH: { if (is_shift_on) return RU_QUES; return RU_SLSH; }
+
+        case MY_RU_E: return RU_E;
+        case MY_RU_SHCH: return RU_SHCH;
+        case MY_RU_EF: return RU_EF;
+        case MY_RU_TSE: return RU_TSE;
     }
     return KC_NO;
 }
