@@ -239,7 +239,7 @@ int get_ru_sym(int eng_sym) {
         case LT(U_REPR, KC_L): return RU_EL;
         case KC_L: return RU_EL;
         case KC_U: return RU_U;
-        case KC_Y: { if (is_shift_on) return RU_YO; return RU_YERU;}
+        case KC_Y: return RU_YERU;
         case KC_QUOTE: return RU_YA;
         case LGUI_T(KC_A): return RU_A;
         case KC_A: return RU_A;
