@@ -81,8 +81,8 @@ MIRYOKU_X(SFTFUN, "SftFun")
 
 #define MIRYOKU_LAYER_BASE \
 KC_Q,              KC_W,              KC_F,              LT(U_REPL, KC_P),  KC_B,              KC_J,              LT(U_REPR, KC_L),  KC_U,              KC_Y,              KC_QUOT,           \
-LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              LT(U_SFTFUN, KC_M),LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),      \
-KC_Z,              KC_X,              KC_C,              KC_D,              KC_V,              KC_K,              LT(U_FUN,KC_H),    KC_COMM,           KC_DOT,            KC_SLSH,           \
+LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),      \
+KC_Z,              KC_X,              KC_C,              KC_D,              KC_V,              LT(U_SFTFUN, KC_K),LT(U_FUN,KC_H),    KC_COMM,           KC_DOT,            KC_SLSH,           \
 MY_RU_E,           MY_RU_SHCH,        MY_RU_EF,          LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),LT(U_SYM,KC_ENT),  LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  MY_RU_TSE
 
 #define MIRYOKU_LAYER_NUM \
