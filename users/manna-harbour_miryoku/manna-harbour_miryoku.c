@@ -249,8 +249,9 @@ int get_ru_sym(int eng_sym) {
         case KC_S: return RU_ES;
         case LSFT_T(KC_T): return RU_TE;
         case KC_T: return RU_TE;
+        case MEH_T(KC_G): return RU_GHE;
         case KC_G: return RU_GHE;
-        case LT(U_SFTFUN, KC_M): return RU_EM;
+        case MEH_T(KC_M): return RU_EM;
         case KC_M: return RU_EM;
         case LSFT_T(KC_N): return RU_EN;
         case KC_N: return RU_EN;
@@ -261,18 +262,15 @@ int get_ru_sym(int eng_sym) {
         case LGUI_T(KC_O): return RU_O;
         case KC_O: return RU_O;
         case KC_Z: { if (is_shift_on) return KC_NO; return RU_SOFT; }
-        case HYPR_T(KC_X): return RU_HA;
         case KC_X: return RU_HA;
-        case MEH_T(KC_C): return RU_ZE;
         case KC_C: return RU_ZE;
         case KC_D: return RU_DE;
         case KC_V: return RU_VE;
+        case LT(U_SFTFUN, KC_K): return RU_KA;
         case KC_K: return RU_KA;
         case LT(U_FUN,KC_H): return RU_CHE;
         case KC_H: return RU_CHE;
-        case MEH_T(KC_COMM): { if (is_shift_on) return RALT(S(KC_COMM)); return RU_COMM;}
         case KC_COMMA: { if (is_shift_on) return RALT(S(KC_COMMA)); return RU_COMM;}
-        case HYPR_T(KC_DOT): { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
         case KC_DOT: { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
         case KC_SLSH: { if (is_shift_on) return RU_QUES; return RU_SLSH; }
 
