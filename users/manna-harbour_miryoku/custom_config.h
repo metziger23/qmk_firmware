@@ -45,14 +45,14 @@ N38, N30,   N31,   K32,   K33,   K34,   K35,   K36,   XXX, XXX, XXX, N39 \
 KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
 KC_LGUI,          KC_LALT,          KC_LCTL,          KC_LSFT,          KC_MEH,           KC_M,             KC_N,             KC_E,             KC_I,             KC_O,             \
 KC_Z,             KC_X,             KC_C,             KC_D,             KC_V,             KC_K,             KC_H,             KC_COMM,          KC_DOT,           KC_SLSH,          \
-KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_ESC,           KC_SPC,           KC_TAB,           KC_ENT,           KC_BSPC,          KC_DEL,           KC_TRNS
+KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_LSFT,          KC_LSFT,          KC_LSFT,          KC_ENT,           KC_BSPC,          KC_DEL,           KC_TRNS
 
 // REPR layer for QMK
 #define MIRYOKU_LAYER_REPR \
 KC_Q,             KC_W,             KC_F,             KC_P,             KC_B,             KC_J,             KC_L,             KC_U,             KC_Y,             KC_QUOT,          \
 KC_A,             KC_R,             KC_S,             KC_T,             KC_G,             KC_MEH,           KC_LSFT,          KC_LCTL,          KC_LALT,          KC_LGUI,          \
 KC_Z,             KC_X,             KC_C,             KC_D,             KC_V,             KC_K,             KC_H,             KC_COMM,          KC_DOT,           KC_SLSH,          \
-KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_ESC,           KC_SPC,           KC_TAB,           KC_ENT,           KC_BSPC,          KC_DEL,           KC_TRNS
+KC_TRNS,          KC_TRNS,          KC_TRNS,          KC_ESC,           KC_SPC,           KC_TAB,           KC_LSFT,          KC_LSFT,          KC_LSFT,           KC_TRNS
 
 #define MIRYOKU_LAYER_SFTFUN \
 LSFT(KC_F12),     LSFT(KC_F7),      LSFT(KC_F8),      LSFT(KC_F9),      LSFT(KC_PSCR),    U_NA,             U_NA,             U_NA,             U_NA,             TD(U_TD_BOOT),    \
