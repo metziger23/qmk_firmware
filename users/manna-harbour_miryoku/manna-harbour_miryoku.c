@@ -139,11 +139,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 /*     COMBO(mute_combo_sym,      KC_MUTE), */
 /* }; */
 
-const uint16_t PROGMEM lang_switch_combo[] = {LSFT_T(KC_N), LCTL_T(KC_E), COMBO_END};
-
-combo_t key_combos[] = {
-    COMBO(lang_switch_combo, LANG_SWITCH),
-};
+/* const uint16_t PROGMEM lang_switch_combo[] = {LSFT_T(KC_N), LCTL_T(KC_E), COMBO_END}; */
+/**/
+/* combo_t key_combos[] = { */
+/*     COMBO(lang_switch_combo, LANG_SWITCH), */
+/* }; */
 
 uint32_t finish_lang_switching(uint32_t trigger_time, void *cb_arg) {
     /* do something */
@@ -172,29 +172,47 @@ bool is_bottom_row_ru_sym(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == LANG_SWITCH && record->event.pressed && !lang_switching_started) {
+
+    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+    const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+    const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+    const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+
+    /* && layer_state_is(0) */
+    const bool switch_lang = record->event.pressed && keycode == LT(U_NUM,KC_BSPC) && record->tap.count
+        && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
+
+    if (switch_lang) {
+        if (lang_switching_started) { return false; }
+
         is_lang_switched = !is_lang_switched;
         /* register_code(KC_LGUI); // KC_LGUI is the left Cmd/Win key */
         /* register_code(KC_SPACE); */
         /* tap_code16_delay(LGUI(KC_SPACE), 50); */
-        lang_switching_started = true;
-        defer_exec(30, finish_lang_switching, NULL);
-        register_code(KC_LGUI);
-        wait_ms(10);
-        register_code(KC_SPACE);
-        wait_ms(10);
-        unregister_code(KC_SPACE);
-        wait_ms(10);
+        /* unregister_code(KC_LEFT_SHIFT); */
+        /* lang_switching_started = true; */
+        /* defer_exec(30, finish_lang_switching, NULL); */
+        /* wait_ms(5); */
+        /* register_code(KC_LGUI); */
+        /**/
+        /* wait_ms(10); */
+        /**/
+        /* register_code(KC_SPACE); */
+        /* wait_ms(10); */
+        /* unregister_code(KC_SPACE); */
+        /* wait_ms(10); */
+        /**/
+        /* unregister_code(KC_LGUI); */
+        /* wait_ms(5); */
+        /**/
+        /* register_code(KC_LEFT_SHIFT); */
 
-        unregister_code(KC_LGUI);
+        tap_code16(KC_F19);
 
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed &&
         (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
         is_bottom_row_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
-        bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
-        bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
-        bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
         if (is_ctrl_on || is_alt_on || is_gui_on) return true;
 
         int ru_key = get_ru_sym(keycode);
@@ -206,25 +224,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true; // Process other keycodes normally
 }
 
-bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
-    // If you want all combos to be tap-only, just uncomment the next line
-    // return true
-
-    // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you:
-    uint16_t key;
-    uint8_t idx = 0;
-    while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-        switch (key) {
-            case QK_MOD_TAP...QK_MOD_TAP_MAX:
-            case QK_LAYER_TAP...QK_LAYER_TAP_MAX:
-            case QK_MOMENTARY...QK_MOMENTARY_MAX:
-                return true;
-        }
-        idx += 1;
-    }
-    return false;
-
-}
+/* bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) { */
+/*     // If you want all combos to be tap-only, just uncomment the next line */
+/*     // return true */
+/**/
+/*     // If you want *all* combos, that have Mod-Tap/Layer-Tap/Momentary keys in its chord, to be tap-only, this is for you: */
+/*     uint16_t key; */
+/*     uint8_t idx = 0; */
+/*     while ((key = pgm_read_word(&combo->keys[idx])) != COMBO_END) { */
+/*         switch (key) { */
+/*             case QK_MOD_TAP...QK_MOD_TAP_MAX: */
+/*             case QK_LAYER_TAP...QK_LAYER_TAP_MAX: */
+/*             case QK_MOMENTARY...QK_MOMENTARY_MAX: */
+/*                 return true; */
+/*         } */
+/*         idx += 1; */
+/*     } */
+/*     return false; */
+/**/
+/* } */
 
 int get_ru_sym(int eng_sym) {
     bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
