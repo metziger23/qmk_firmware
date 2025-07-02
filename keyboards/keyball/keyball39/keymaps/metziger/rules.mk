@@ -1,0 +1,19 @@
+#default ones
+
+RGBLIGHT_ENABLE = yes
+
+OLED_ENABLE = yes
+
+# added
+
+DEFERRED_EXEC_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+# AUTO_SHIFT_ENABLE = yes
+AUTO_SHIFT_ENABLE = no
+# TAP_DANCE_ENABLE = yes # TODO: uncomment later
+CAPS_WORD_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
+
+# COMBO_ENABLE = yes
+
