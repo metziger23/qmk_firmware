@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,               KC_W,               KC_F,               LT(REPL,KC_P),          KC_B,                 KC_J,                   LT(REPR,KC_L),        KC_U,                     KC_Y,               KC_QUOT,
     LGUI_T(KC_A),       LALT_T(KC_R),       LCTL_T(KC_S),       LSFT_T(KC_T),           MEH_T(KC_G),          MEH_T(KC_M),            LSFT_T(KC_N),         LCTL_T(KC_E),             LALT_T(KC_I),       LGUI_T(KC_O),
     KC_Z,               KC_X,               KC_C,               KC_D,                   KC_V,                 LT(SFTFUN,KC_K),        LT(FUN,KC_H),         KC_COMM,                  KC_DOT,             KC_SLSH,
-    MY_RU_E,            MY_RU_SHCH,         MY_RU_EF,           LT(MEDIA,KC_ESC),       LT(NAV,KC_SPC),       LT(MOUSE,KC_TAB),       LT(SYM,KC_ENT),       LT(NUM,KC_BSPC),          MY_RU_TSE
+    MY_RU_SHCH,         MY_RU_CHE,          MY_RU_ZHE,          LT(MEDIA,KC_ESC),       LT(NAV,KC_SPC),       LT(MOUSE,KC_TAB),       LT(SYM,KC_ENT),       LT(NUM,KC_BSPC),          KC_NO
   ),
 
   [MEDIA] = LAYOUT_right_ball(
@@ -148,9 +148,94 @@ const key_override_t ru_hard_sign_key_override = {
     .enabled                = &is_lang_switched
 };
 
+const key_override_t ru_comm_key_override = {
+    .trigger_mods           = MOD_MASK_CTRL,
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_COMMA,
+    .replacement            = RU_COMM,
+    .enabled                = &is_lang_switched
+};
+
+const key_override_t ru_dot_key_override = {
+    .trigger_mods           = MOD_MASK_CTRL,
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_DOT,
+    .replacement            = RU_DOT,
+    .enabled                = &is_lang_switched
+};
+
+const key_override_t ru_left_angle_bracket_key_override = {
+    .trigger_mods           = (MOD_MASK_CTRL | MOD_MASK_SHIFT),
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_COMMA,
+    .replacement            = RALT(S(KC_COMMA)),
+    .enabled                = &is_lang_switched
+};
+
+const key_override_t ru_right_angle_bracket_key_override = {
+    .trigger_mods           = (MOD_MASK_CTRL | MOD_MASK_SHIFT),
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_DOT,
+    .replacement            = RALT(S(KC_DOT)),
+    .enabled                = &is_lang_switched
+};
+
+const key_override_t ru_ques_key_override = {
+    .trigger_mods           = MOD_MASK_CTRL,
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_SLSH,
+    .replacement            = RU_QUES,
+    .enabled                = &is_lang_switched
+};
+
+const key_override_t ru_slsh_key_override = {
+    .trigger_mods           = (MOD_MASK_CTRL | MOD_MASK_SHIFT),
+    .layers                 = ~0,
+    .suppressed_mods        = MOD_MASK_CTRL,
+    .options                = ko_options_default,
+    .negative_mod_mask      = 0,
+    .custom_action          = NULL,
+    .context                = NULL,
+    .trigger                = KC_SLSH,
+    .replacement            = RU_SLSH,
+    .enabled                = &is_lang_switched
+};
+
+
 const key_override_t **key_overrides = (const key_override_t *[]){
     &capsword_key_override,
-    &ru_hard_sign_key_override,
+    /* &ru_hard_sign_key_override, */
+    &ru_left_angle_bracket_key_override,
+    &ru_right_angle_bracket_key_override,
+    &ru_comm_key_override,
+    &ru_dot_key_override,
+    &ru_slsh_key_override,
+    &ru_ques_key_override,
     NULL
 };
 
@@ -217,7 +302,7 @@ bool is_non_basic_symbol(uint16_t keycode) {
 }
 
 bool is_bottom_row_ru_sym(uint16_t keycode) {
-    return ( keycode == MY_RU_E || keycode == MY_RU_SHCH || keycode == MY_RU_EF || keycode == MY_RU_TSE);
+    return ( keycode == MY_RU_SHCH || keycode == MY_RU_CHE || keycode == MY_RU_ZHE );
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -294,57 +379,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* } */
 
 int get_ru_sym(int eng_sym) {
-    bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+    const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+
     switch (eng_sym) {
-        case KC_Q: return RU_YU;
-        case KC_W: return RU_ZHE;
-        case KC_F: return RU_SHA;
-        case LT(REPL, KC_P): return RU_PE;
-        case KC_P: return RU_PE;
-        case KC_B: return RU_BE;
-        case KC_J: return RU_SHTI;
-        case LT(REPR, KC_L): return RU_EL;
-        case KC_L: return RU_EL;
-        case KC_U: return RU_U;
-        case KC_Y: return RU_YERU;
-        case KC_QUOTE: return RU_YA;
-        case LGUI_T(KC_A): return RU_A;
-        case KC_A: return RU_A;
-        case LALT_T(KC_R): return RU_ER;
-        case KC_R: return RU_ER;
-        case LCTL_T(KC_S): return RU_ES;
-        case KC_S: return RU_ES;
+        case KC_Q: return RU_TSE;
+        case KC_W: return RU_KA;
+        case KC_F: return RU_EL;
+        case LT(REPL, KC_P): return RU_BE;
+        case KC_P: return RU_BE;
+        case KC_B: return RU_SHTI;
+        case KC_J: return RU_HARD;
+        case LT(REPR, KC_L): return RU_YERU;
+        case KC_L: return RU_YERU;
+        case KC_U: return RU_YA;
+        case KC_Y: return RU_E;
+        case KC_QUOTE: return RU_EF;
+        case LGUI_T(KC_A): return RU_ZE;
+        case KC_A: return RU_ZE;
+        case LALT_T(KC_R): return RU_VE;
+        case KC_R: return RU_VE;
+        case LCTL_T(KC_S): return RU_EN;
+        case KC_S: return RU_EN;
         case LSFT_T(KC_T): return RU_TE;
         case KC_T: return RU_TE;
-        case MEH_T(KC_G): return RU_GHE;
-        case KC_G: return RU_GHE;
-        case MEH_T(KC_M): return RU_EM;
-        case KC_M: return RU_EM;
-        case LSFT_T(KC_N): return RU_EN;
-        case KC_N: return RU_EN;
-        case LCTL_T(KC_E): return RU_IE;
-        case KC_E: return RU_IE;
-        case LALT_T(KC_I): return RU_I;
-        case KC_I: return RU_I;
-        case LGUI_T(KC_O): return RU_O;
-        case KC_O: return RU_O;
-        case KC_Z: { if (is_shift_on) return KC_NO; return RU_SOFT; }
-        case KC_X: return RU_HA;
-        case KC_C: return RU_ZE;
-        case KC_D: return RU_DE;
-        case KC_V: return RU_VE;
-        case LT(SFTFUN, KC_K): return RU_KA;
-        case KC_K: return RU_KA;
-        case LT(FUN,KC_H): return RU_CHE;
-        case KC_H: return RU_CHE;
-        case KC_COMMA: { if (is_shift_on) return RALT(S(KC_COMMA)); return RU_COMM;}
-        case KC_DOT: { if (is_shift_on) return RALT(S(KC_DOT)); return RU_DOT;}
-        case KC_SLSH: { if (is_shift_on) return RU_QUES; return RU_SLSH; }
+        case MEH_T(KC_G): return RU_DE;
+        case KC_G: return RU_DE;
+        case MEH_T(KC_M): return RU_I;
+        case KC_M: return RU_I;
+        case LSFT_T(KC_N): return RU_A;
+        case KC_N: return RU_A;
+        case LCTL_T(KC_E): return RU_O;
+        case KC_E: return RU_O;
+        case LALT_T(KC_I): return RU_IE;
+        case KC_I: return RU_IE;
+        case LGUI_T(KC_O): return RU_ES;
+        case KC_O: return RU_ES;
+        case KC_Z: return RU_HA;
+        case KC_X: return RU_PE;
+        case KC_C: return RU_ER;
+        case KC_D: return RU_EM;
+        case KC_V: return RU_GHE;
+        case LT(SFTFUN, KC_K): return RU_YO;
+        case KC_K: return RU_YO;
+        case LT(FUN,KC_H): return RU_SOFT;
+        case KC_H: return RU_SOFT;
+        case KC_COMMA: {
+            if (is_shift_on && is_ctrl_on) return KC_NO; // NOTE: overriden
+            if (is_ctrl_on) return KC_NO; // NOTE: overriden
+            return RU_U;
+        }
+        case KC_DOT: {
+            if (is_shift_on && is_ctrl_on) return KC_NO; // NOTE: overriden
+            if (is_ctrl_on) return KC_NO; // NOTE: overriden
+            return RU_YU;
+        }
+        case KC_SLSH: {
+            if (is_shift_on && is_ctrl_on) return KC_NO; // NOTE: overriden
+            if (is_ctrl_on) return KC_NO; // NOTE: overriden
+            return RU_SHA;
+        }
 
-        case MY_RU_E: return RU_E;
         case MY_RU_SHCH: return RU_SHCH;
-        case MY_RU_EF: return RU_EF;
-        case MY_RU_TSE: return RU_TSE;
+        case MY_RU_CHE: return RU_CHE;
+        case MY_RU_ZHE: return RU_ZHE;
 
         case KC_LBRC: return RALT(KC_GRV);
         case KC_RBRC: return S(RALT(KC_GRV));
