@@ -31,6 +31,9 @@ enum charybdis_keycodes {
     SNIPING_MODE_TOGGLE,
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
+    MY_RU_SHCH,
+    MY_RU_CHE,
+    MY_RU_ZHE,
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
