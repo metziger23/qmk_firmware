@@ -1,11 +1,5 @@
-complile-miryoku-keyball39:
-    qmk compile -kb keyball/keyball39 -km manna-harbour_miryoku
+complile-metziger-my_charybdis:
+    qmk compile -kb my_charybdis/4x6/v2 -km metziger
 
-generate-combilation-database-miryoku-keyball39:
-    qmk generate-compilation-database -kb keyball/keyball39 -km manna-harbour_miryoku
-
-complile-metziger-keyball39:
-    qmk compile -kb keyball/keyball39 -km metziger
-
-generate-combilation-database-metziger-keyball39:
-    qmk generate-compilation-database -kb keyball/keyball39 -km metziger
+generate-combilation-database-metziger-my_charybdis:
+    qmk generate-compilation-database -kb my_charybdis/4x6/v2 -km metziger
