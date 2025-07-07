@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "charybdis.h"
+#include "keymap_russian.h"
 
 enum charybdis_keymap_layers {
     BASE = 0,
@@ -108,3 +109,136 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
                         'L', 'L', 'R'
 );
 // clang-format on
+
+static bool is_lang_switched = false;
+static bool lang_switching_started = false;
+int get_ru_sym(int eng_sym);
+
+const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &capsword_key_override,
+    NULL
+};
+
+bool is_non_basic_symbol(uint16_t keycode) {
+    switch (keycode) {
+        case KC_LCBR: return true;
+        case KC_RCBR: return true;
+        case KC_COLN: return true;
+        case KC_AT: return true;
+        case KC_HASH: return true;
+        case KC_DLR: return true;
+        case KC_CIRC: return true;
+        case KC_AMPR: return true;
+
+        case KC_PIPE: return true;
+    }
+    return false;
+}
+
+bool is_left_outer_pinky_ru_sym(uint16_t keycode) {
+    return ( keycode == MY_RU_SHCH || keycode == MY_RU_CHE || keycode == MY_RU_ZHE );
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+    const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+    const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+    const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+
+    /* && layer_state_is(0) */
+    const bool switch_lang = record->event.pressed && keycode == LT(NUM,KC_BSPC) && record->tap.count
+        && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
+
+    if (switch_lang) {
+        if (lang_switching_started) { return false; }
+        is_lang_switched = !is_lang_switched;
+        tap_code16(KC_F19);
+        return false; // Skip further processing of this key
+    } else if (is_lang_switched && record->event.pressed &&
+                (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
+                is_left_outer_pinky_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
+
+        if (is_ctrl_on || is_alt_on || is_gui_on) return true;
+
+        int ru_key = get_ru_sym(keycode);
+        if (!ru_key) return true;
+        tap_code16(ru_key);
+        return false; // Skip further processing of this key
+    }
+
+    return true; // Process other keycodes normally
+}
+
+int get_ru_sym(int eng_sym) {
+    /* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
+
+    switch (eng_sym) {
+        case KC_Q: return RU_TSE;
+        case KC_W: return RU_KA;
+        case KC_F: return RU_EL;
+        case LT(REPL, KC_P): return RU_BE;
+        case KC_P: return RU_BE;
+        case KC_B: return RU_SHTI;
+        case KC_J: return RU_HARD;
+        case LT(REPR, KC_L): return RU_YERU;
+        case KC_L: return RU_YERU;
+        case KC_U: return RU_YA;
+        case KC_Y: return RU_E;
+        case KC_QUOTE: return RU_EF;
+        case LGUI_T(KC_A): return RU_ZE;
+        case KC_A: return RU_ZE;
+        case LALT_T(KC_R): return RU_VE;
+        case KC_R: return RU_VE;
+        case LCTL_T(KC_S): return RU_EN;
+        case KC_S: return RU_EN;
+        case LSFT_T(KC_T): return RU_TE;
+        case KC_T: return RU_TE;
+        case MEH_T(KC_G): return RU_DE;
+        case KC_G: return RU_DE;
+        case MEH_T(KC_M): return RU_I;
+        case KC_M: return RU_I;
+        case LSFT_T(KC_N): return RU_A;
+        case KC_N: return RU_A;
+        case LCTL_T(KC_E): return RU_O;
+        case KC_E: return RU_O;
+        case LALT_T(KC_I): return RU_IE;
+        case KC_I: return RU_IE;
+        case LGUI_T(KC_O): return RU_ES;
+        case KC_O: return RU_ES;
+        case KC_Z: return RU_HA;
+        case KC_X: return RU_PE;
+        case KC_C: return RU_ER;
+        case KC_D: return RU_EM;
+        case KC_V: return RU_GHE;
+        case KC_K: return RU_YO;
+        case KC_H: return RU_SOFT;
+        case KC_COMMA: return RU_U;
+        case KC_DOT: return RU_YU;
+        case KC_SLSH: return RU_SHA;
+
+        case MY_RU_SHCH: return RU_SHCH;
+        case MY_RU_CHE: return RU_CHE;
+        case MY_RU_ZHE: return RU_ZHE;
+
+        case KC_LBRC: return RALT(KC_GRV);
+        case KC_RBRC: return S(RALT(KC_GRV));
+
+        case KC_LCBR: return S(RALT(KC_LPRN));
+        case KC_RCBR: return S(RALT(KC_RPRN));
+
+        case KC_SCLN: return RU_SCLN;
+        case KC_COLN: return RU_COLN;
+
+        case KC_AT: return RALT(KC_2);
+        case KC_HASH: return RALT(KC_3);
+        case KC_DLR: return RALT(KC_4);
+        case KC_CIRC: return RALT(KC_6);
+        case KC_AMPR: return RALT(KC_7);
+
+        case KC_PIPE: return S(RALT(KC_PIPE));
+    }
+    return KC_NO;
+}
