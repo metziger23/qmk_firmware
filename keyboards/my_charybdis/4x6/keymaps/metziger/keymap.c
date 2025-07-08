@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "charybdis.h"
+#include "charybdis.c" // NOTE: if not included than SNIPING and DRGSCRL not working
 #include "keymap_russian.h"
 
 enum charybdis_keymap_layers {
