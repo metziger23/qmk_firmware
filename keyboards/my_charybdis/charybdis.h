@@ -34,6 +34,9 @@ enum charybdis_keycodes {
     MY_RU_SHCH,
     MY_RU_CHE,
     MY_RU_ZHE,
+    MY_RU_DOT,
+    MY_RU_COMMA,
+    MY_RU_SLSH,
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD

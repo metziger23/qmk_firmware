@@ -19,9 +19,9 @@ enum charybdis_keymap_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,         KC_MINS,
-        MY_RU_SHCH, KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      LSFT(KC_SLSH),
-        MY_RU_CHE,  LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  MEH_T(KC_G), MEH_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), KC_COMM,
-        MY_RU_ZHE,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      KC_DOT,
+        MY_RU_SHCH, KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      MY_RU_DOT,
+        MY_RU_CHE,  LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  MEH_T(KC_G), MEH_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), MY_RU_COMMA,
+        MY_RU_ZHE,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      MY_RU_SLSH,
                                   LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                                     KC_LGUI,        KC_MEH,               LT(FUN,KC_DEL)
   ),
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MOUSE] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,      KC_TRNS,
         KC_TRNS, QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,        U_RDO,   U_PST,   U_CPY,           U_CUT,   U_UND,        KC_TRNS,
-        KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SNIPING_MODE, KC_BTN3, KC_BTN1, DRAGSCROLL_MODE, KC_BTN2, SNIPING_MODE, KC_TRNS,
+        KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SNIPING,      KC_BTN3, KC_BTN1, DRGSCRL,         KC_BTN2, SNIPING,      KC_TRNS,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,   KC_BTN4, KC_NO,           KC_NO,   KC_BTN5,      KC_TRNS,
                                                 KC_NO, KC_NO, KC_NO, KC_BTN2, KC_BTN1,
                                                 KC_NO, KC_NO,        KC_BTN3
@@ -138,8 +138,10 @@ bool is_non_basic_symbol(uint16_t keycode) {
     return false;
 }
 
-bool is_left_outer_pinky_ru_sym(uint16_t keycode) {
-    return ( keycode == MY_RU_SHCH || keycode == MY_RU_CHE || keycode == MY_RU_ZHE );
+bool is_outer_pinky_ru_sym(uint16_t keycode) {
+    const bool is_left = ( keycode == MY_RU_SHCH || keycode == MY_RU_CHE || keycode == MY_RU_ZHE );
+    const bool is_right = ( keycode == MY_RU_DOT || keycode == MY_RU_COMMA || keycode == MY_RU_SLSH );
+    return is_left || is_right;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -160,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed &&
                 (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
-                is_left_outer_pinky_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
+                is_outer_pinky_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
 
         if (is_ctrl_on || is_alt_on || is_gui_on) return true;
 
@@ -174,7 +176,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 int get_ru_sym(int eng_sym) {
-    /* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
+    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
 
     switch (eng_sym) {
         case KC_Q: return RU_TSE;
@@ -214,7 +216,7 @@ int get_ru_sym(int eng_sym) {
         case KC_C: return RU_ER;
         case KC_D: return RU_EM;
         case KC_V: return RU_GHE;
-        case KC_K: return RU_YO;
+        case KC_K: return is_shift_on ? RU_DQUO : RALT(KC_O);
         case KC_H: return RU_SOFT;
         case KC_COMMA: return RU_U;
         case KC_DOT: return RU_YU;
@@ -223,6 +225,10 @@ int get_ru_sym(int eng_sym) {
         case MY_RU_SHCH: return RU_SHCH;
         case MY_RU_CHE: return RU_CHE;
         case MY_RU_ZHE: return RU_ZHE;
+
+        case MY_RU_COMMA: return is_shift_on ? S(RALT(KC_COMM)) : RU_COMM;
+        case MY_RU_DOT: return is_shift_on ? S(RALT(KC_DOT)) : RU_DOT;
+        case MY_RU_SLSH: return is_shift_on ? RU_QUES : RU_SLSH;
 
         case KC_LBRC: return RALT(KC_GRV);
         case KC_RBRC: return S(RALT(KC_GRV));
