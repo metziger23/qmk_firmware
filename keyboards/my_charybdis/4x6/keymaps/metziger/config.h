@@ -52,12 +52,9 @@
 #define PERMISSIVE_HOLD
 #define CHORDAL_HOLD
 
-// needed to make RGB work
-// #define RGB_DI_PIN WS2812_DI_PIN
-//
 // disable split detection - should help with sleeping issues
-// #undef SPLIT_USB_DETECT
-// #define USB_VBUS_PIN GP19
+#undef SPLIT_USB_DETECT
+#define USB_VBUS_PIN GP19
 
 #define U_RDO KC_AGIN
 #define U_PST S(KC_INS)
