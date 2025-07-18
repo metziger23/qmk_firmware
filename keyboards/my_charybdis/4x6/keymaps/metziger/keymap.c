@@ -134,6 +134,9 @@ bool is_non_basic_symbol(uint16_t keycode) {
         case KC_AMPR: return true;
 
         case KC_PIPE: return true;
+
+        case KC_GRAVE: return true;
+        case KC_TILD: return true;
     }
     return false;
 }
@@ -151,7 +154,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
     const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
-    /* && layer_state_is(0) */
     const bool switch_lang = record->event.pressed && keycode == LT(NUM,KC_BSPC) && record->tap.count
         && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
 
@@ -216,7 +218,7 @@ int get_ru_sym(int eng_sym) {
         case KC_C: return RU_ER;
         case KC_D: return RU_EM;
         case KC_V: return RU_GHE;
-        case KC_K: return is_shift_on ? RU_DQUO : RALT(KC_O);
+        case KC_K: return RU_YO;
         case KC_H: return RU_SOFT;
         case KC_COMMA: return RU_U;
         case KC_DOT: return RU_YU;
@@ -246,6 +248,9 @@ int get_ru_sym(int eng_sym) {
         case KC_AMPR: return RALT(KC_7);
 
         case KC_PIPE: return S(RALT(KC_PIPE));
+
+        case KC_GRAVE: return RALT(KC_O);
+        case KC_TILD: return RU_DQUO;
     }
     return KC_NO;
 }
