@@ -130,6 +130,8 @@ bool is_non_basic_symbol(uint16_t keycode) {
 
         case KC_GRAVE: return true;
         case KC_TILD: return true;
+
+        case KC_BSLS: return true;
     }
     return false;
 }
@@ -214,7 +216,7 @@ int get_ru_sym(int eng_sym) {
         case KC_K: return RU_YO;
         case KC_H: return RU_SOFT;
         case KC_COMMA: return RU_U;
-        case KC_DOT: return RU_YU;
+        case KC_DOT: return IS_LAYER_ON(NUM) ? (is_shift_on ? RU_LPRN : RU_DOT) : RU_YU;
         case KC_SLSH: return RU_SHA;
 
         case MY_RU_SHCH: return RU_SHCH;
@@ -240,9 +242,10 @@ int get_ru_sym(int eng_sym) {
         case KC_CIRC: return RALT(KC_6);
         case KC_AMPR: return RALT(KC_7);
 
+        case KC_BSLS: return is_shift_on ? S(RALT(KC_PIPE)) : KC_BSLS;
         case KC_PIPE: return S(RALT(KC_PIPE));
 
-        case KC_GRAVE: return RALT(KC_O);
+        case KC_GRAVE: return is_shift_on ? RU_DQUO : RALT(KC_O);
         case KC_TILD: return RU_DQUO;
     }
     return KC_NO;
