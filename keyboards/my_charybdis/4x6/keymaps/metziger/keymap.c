@@ -115,13 +115,6 @@ static bool is_lang_switched = false;
 static bool lang_switching_started = false;
 int get_ru_sym(int eng_sym);
 
-const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &capsword_key_override,
-    NULL
-};
-
 bool is_non_basic_symbol(uint16_t keycode) {
     switch (keycode) {
         case KC_LCBR: return true;
@@ -232,8 +225,8 @@ int get_ru_sym(int eng_sym) {
         case MY_RU_DOT: return is_shift_on ? S(RALT(KC_DOT)) : RU_DOT;
         case MY_RU_SLSH: return is_shift_on ? RU_QUES : RU_SLSH;
 
-        case KC_LBRC: return RALT(KC_GRV);
-        case KC_RBRC: return S(RALT(KC_GRV));
+        case KC_LBRC: return is_shift_on ? S(RALT(KC_LPRN)) : RALT(KC_GRV);
+        case KC_RBRC: return is_shift_on ? S(RALT(KC_RPRN)) : S(RALT(KC_GRV));
 
         case KC_LCBR: return S(RALT(KC_LPRN));
         case KC_RCBR: return S(RALT(KC_RPRN));
@@ -254,3 +247,32 @@ int get_ru_sym(int eng_sym) {
     }
     return KC_NO;
 }
+
+#define ko_make_ru_sft_num(num) \
+((const key_override_t){                                                                \
+  .trigger_mods      = MOD_MASK_SHIFT,\
+  .layers            = ~NUM,\
+  .suppressed_mods   = MOD_MASK_SHIFT,\
+  .options           = ko_options_default,\
+  .negative_mod_mask = 0,\
+  .custom_action     = NULL,\
+  .context           = NULL,\
+  .trigger           = num,\
+  .replacement       = RALT(num),\
+  .enabled           = &is_lang_switched\
+})
+
+const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
+
+const key_override_t ru_sft_2 = ko_make_ru_sft_num(KC_2);
+const key_override_t ru_sft_3 = ko_make_ru_sft_num(KC_3);
+const key_override_t ru_sft_4 = ko_make_ru_sft_num(KC_4);
+const key_override_t ru_sft_6 = ko_make_ru_sft_num(KC_6);
+const key_override_t ru_sft_7 = ko_make_ru_sft_num(KC_7);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+  &capsword_key_override,
+  &ru_sft_2, &ru_sft_2, &ru_sft_3, &ru_sft_4, &ru_sft_6, &ru_sft_7,
+  NULL
+};
+
