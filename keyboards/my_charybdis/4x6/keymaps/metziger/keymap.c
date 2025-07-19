@@ -19,9 +19,9 @@ enum charybdis_keymap_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,         KC_MINS,
-        MY_RU_SHCH, KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      MY_RU_DOT,
-        MY_RU_CHE,  LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  MEH_T(KC_G), MEH_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), MY_RU_COMMA,
-        MY_RU_ZHE,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      MY_RU_SLSH,
+        KC_LBRC,    KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      KC_RBRC,
+        KC_COLN,    LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  MEH_T(KC_G), MEH_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), KC_SCLN,
+        KC_LPRN,    KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      KC_RPRN,
                                   LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                                     KC_LGUI,        KC_MEH,               LT(FUN,KC_DEL)
   ),
@@ -132,14 +132,14 @@ bool is_non_basic_symbol(uint16_t keycode) {
         case KC_TILD: return true;
 
         case KC_BSLS: return true;
+
+        case KC_LBRC: return true;
+        case KC_LPRN: return true;
+        case KC_RBRC: return true;
+        case KC_SCLN: return true;
+        case KC_RPRN: return true;
     }
     return false;
-}
-
-bool is_outer_pinky_ru_sym(uint16_t keycode) {
-    const bool is_left = ( keycode == MY_RU_SHCH || keycode == MY_RU_CHE || keycode == MY_RU_ZHE );
-    const bool is_right = ( keycode == MY_RU_DOT || keycode == MY_RU_COMMA || keycode == MY_RU_SLSH );
-    return is_left || is_right;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed &&
                 (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
-                is_outer_pinky_ru_sym(keycode) || is_non_basic_symbol(keycode))) {
+                is_non_basic_symbol(keycode))) {
 
         if (is_ctrl_on || is_alt_on || is_gui_on) return true;
 
@@ -219,22 +219,14 @@ int get_ru_sym(int eng_sym) {
         case KC_DOT: return IS_LAYER_ON(NUM) ? (is_shift_on ? RU_LPRN : RU_DOT) : RU_YU;
         case KC_SLSH: return RU_SHA;
 
-        case MY_RU_SHCH: return RU_SHCH;
-        case MY_RU_CHE: return RU_CHE;
-        case MY_RU_ZHE: return RU_ZHE;
-
-        case MY_RU_COMMA: return is_shift_on ? S(RALT(KC_COMM)) : RU_COMM;
-        case MY_RU_DOT: return is_shift_on ? S(RALT(KC_DOT)) : RU_DOT;
-        case MY_RU_SLSH: return is_shift_on ? RU_QUES : RU_SLSH;
-
-        case KC_LBRC: return is_shift_on ? S(RALT(KC_LPRN)) : RALT(KC_GRV);
-        case KC_RBRC: return is_shift_on ? S(RALT(KC_RPRN)) : S(RALT(KC_GRV));
+        case KC_LBRC: return IS_LAYER_ON(BASE) ? RU_SHCH : is_shift_on ? S(RALT(KC_LPRN)) : RALT(KC_GRV);
+        case KC_RBRC: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_DOT)) : RU_DOT) : is_shift_on ? S(RALT(KC_RPRN)) : S(RALT(KC_GRV));
 
         case KC_LCBR: return S(RALT(KC_LPRN));
         case KC_RCBR: return S(RALT(KC_RPRN));
 
-        case KC_SCLN: return RU_SCLN;
-        case KC_COLN: return RU_COLN;
+        case KC_SCLN: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_COMM)) : RU_COMM) : RU_SCLN;
+        case KC_COLN: return IS_LAYER_ON(BASE) ? RU_CHE : RU_COLN;
 
         case KC_AT: return RALT(KC_2);
         case KC_HASH: return RALT(KC_3);
@@ -247,6 +239,9 @@ int get_ru_sym(int eng_sym) {
 
         case KC_GRAVE: return is_shift_on ? RU_DQUO : RALT(KC_O);
         case KC_TILD: return RU_DQUO;
+
+        case KC_LPRN: return IS_LAYER_ON(BASE) ? RU_ZHE : KC_LPRN;
+        case KC_RPRN: return IS_LAYER_ON(BASE) ? (is_shift_on ? RU_QUES : RU_SLSH) : KC_RPRN;
     }
     return KC_NO;
 }
