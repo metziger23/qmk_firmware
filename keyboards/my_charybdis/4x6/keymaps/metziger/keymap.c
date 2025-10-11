@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (switch_lang) {
         if (lang_switching_started) { return false; }
         is_lang_switched = !is_lang_switched;
-        tap_code16(KC_F19);
+        tap_code16(KC_RSFT);
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed &&
                 (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
