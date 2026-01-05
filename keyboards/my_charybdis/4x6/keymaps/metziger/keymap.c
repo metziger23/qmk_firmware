@@ -16,20 +16,27 @@ enum charybdis_keymap_layers
 	REPR,
 };
 
+// clang-format off
+/* a b c d e f g h i j k l m n o p q r s t u v w x y z */
 #define M_KC_LBRC RALT(KC_A)
 #define M_KC_COLN RALT(KC_B)
 #define M_KC_LPRN RALT(KC_C)
 #define M_KC_RBRC RALT(KC_D)
 #define M_KC_SCLN RALT(KC_E)
 #define M_KC_RPRN RALT(KC_F)
+#define M_KC_QUOT RALT(KC_G)
+#define M_KC_COMM RALT(KC_H)
+#define M_KC_DOT  RALT(KC_I)
+#define M_KC_SLSH RALT(KC_J)
+// clang-format on
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,           KC_MINS,
-        M_KC_LBRC,  KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,        M_KC_RBRC,
+        M_KC_LBRC,  KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         M_KC_QUOT,        M_KC_RBRC,
         M_KC_COLN,  LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  RGUI_T(KC_G), RGUI_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), M_KC_SCLN,
-        M_KC_LPRN,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,        M_KC_RPRN,
+        M_KC_LPRN,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          M_KC_COMM,      M_KC_DOT,       M_KC_SLSH,        M_KC_RPRN,
                                   LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                                     LSFT(KC_QUOT),  LCTL(KC_6),           LT(FUN,KC_DEL)
   ),
@@ -91,18 +98,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [REPL] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,   KC_QUOT, KC_TRNS,
+        KC_TRNS, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,   KC_U,    KC_Y,   KC_TRNS, KC_TRNS,
         KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_RGUI,  KC_M,    KC_N,   KC_E,    KC_I,   KC_O, KC_TRNS,
-        KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,   KC_COMM, KC_DOT, KC_SLSH, KC_TRNS,
+        KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                   KC_LSFT, KC_LSFT, KC_LSFT,     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                            KC_LSFT, KC_LSFT,     LT(FUN,KC_DEL)
     ),
 
     [REPR] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_Q,    KC_W,    KC_F,    KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,    KC_QUOT, KC_TRNS,
+        KC_TRNS, KC_Q,    KC_W,    KC_F,    KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,    KC_TRNS, KC_TRNS,
         KC_TRNS, KC_A,    KC_R,    KC_S,    KC_T,   KC_G,   KC_RGUI, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS,
-        KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_D,   KC_V,   KC_K,   KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_TRNS,
+        KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_D,   KC_V,   KC_K,   KC_H,    KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
             LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     KC_LSFT,  KC_LSFT,
                               LSFT(KC_QUOT),  LCTL(KC_6),           KC_LSFT
     ),
@@ -177,6 +184,10 @@ int get_legacy_keycode_from_ralt_keycode(uint16_t keycode)
     case M_KC_RBRC: return KC_RBRC;
     case M_KC_SCLN: return KC_SCLN;
     case M_KC_RPRN: return KC_RPRN;
+    case M_KC_QUOT: return KC_QUOT;
+    case M_KC_COMM: return KC_COMM;
+    case M_KC_DOT:  return KC_DOT;
+    case M_KC_SLSH: return KC_SLSH;
 		// clang-format on
 	}
 	return KC_NO;
