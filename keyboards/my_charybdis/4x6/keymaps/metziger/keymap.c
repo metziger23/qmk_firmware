@@ -3,16 +3,17 @@
 #include "charybdis.c" // NOTE: if not included than SNIPING and DRGSCRL not working
 #include "keymap_russian.h"
 
-enum charybdis_keymap_layers {
-    BASE = 0,
-    MEDIA,
-    NAV,
-    MOUSE,
-    SYM,
-    NUM,
-    FUN,
-    REPL,
-    REPR,
+enum charybdis_keymap_layers
+{
+	BASE = 0,
+	MEDIA,
+	NAV,
+	MOUSE,
+	SYM,
+	NUM,
+	FUN,
+	REPL,
+	REPR,
 };
 
 #define M_KC_LBRC RALT(KC_A)
@@ -122,196 +123,226 @@ static bool is_legacy_lang_switching_mode_enabled = false;
 static bool is_lang_switched = false;
 int get_ru_sym(int eng_sym);
 
-bool is_non_basic_symbol(uint16_t keycode) {
-    switch (keycode) {
-        case KC_LCBR: return true;
-        case KC_RCBR: return true;
-        case KC_COLN: return true;
-        case KC_AT: return true;
-        case KC_HASH: return true;
-        case KC_DLR: return true;
-        case KC_CIRC: return true;
-        case KC_AMPR: return true;
+bool is_non_basic_symbol(uint16_t keycode)
+{
+	switch (keycode)
+	{
+		// clang-format off
+    case KC_LCBR: return true;
+    case KC_RCBR: return true;
+    case KC_COLN: return true;
+    case KC_AT: return true;
+    case KC_HASH: return true;
+    case KC_DLR: return true;
+    case KC_CIRC: return true;
+    case KC_AMPR: return true;
 
-        case KC_PIPE: return true;
+    case KC_PIPE: return true;
 
-        case KC_GRAVE: return true;
-        case KC_TILD: return true;
+    case KC_GRAVE: return true;
+    case KC_TILD: return true;
 
-        case KC_BSLS: return true;
+    case KC_BSLS: return true;
 
-        case KC_LBRC: return true;
-        case KC_LPRN: return true;
-        case KC_RBRC: return true;
-        case KC_SCLN: return true;
-        case KC_RPRN: return true;
-    }
-    return false;
+    case KC_LBRC: return true;
+    case KC_LPRN: return true;
+    case KC_RBRC: return true;
+    case KC_SCLN: return true;
+    case KC_RPRN: return true;
+		// clang-format on
+	}
+	return false;
 }
 
-bool switch_lang(uint16_t keycode, keyrecord_t *record) {
-  const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-  const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
-  const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
-  const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+bool switch_lang(uint16_t keycode, keyrecord_t * record)
+{
+	const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+	const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+	const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+	const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
-  return record->event.pressed && keycode == LT(NUM,KC_BSPC) && record->tap.count
-    && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
+	return record->event.pressed && keycode == LT(NUM, KC_BSPC) && record->tap.count &&
+		is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
 }
 
 /* TODO: change int to uint16_t */
-int get_legacy_keycode_from_ralt_keycode(uint16_t keycode) {
-  switch (keycode) {
+int get_legacy_keycode_from_ralt_keycode(uint16_t keycode)
+{
+	switch (keycode)
+	{
+		// clang-format off
     case M_KC_LBRC: return KC_LBRC;
     case M_KC_COLN: return KC_COLN;
     case M_KC_LPRN: return KC_LPRN;
     case M_KC_RBRC: return KC_RBRC;
     case M_KC_SCLN: return KC_SCLN;
     case M_KC_RPRN: return KC_RPRN;
-  }
-  return KC_NO;
+		// clang-format on
+	}
+	return KC_NO;
 }
 
-bool process_record_user_for_legacy_lang_switching(uint16_t keycode, keyrecord_t *record) {
-    const int ralt_keycode = get_legacy_keycode_from_ralt_keycode(keycode);
-    if (ralt_keycode) {
-        keycode = ralt_keycode;
-    }
-    if (switch_lang(keycode, record)) {
-        is_lang_switched = !is_lang_switched;
-        tap_code16(KC_RSFT);
-        return false; // Skip further processing of this key
-    } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode) || is_non_basic_symbol(keycode))) {
-        /* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
-        const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
-        const bool is_alt_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
-        const bool is_gui_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+bool process_record_user_for_legacy_lang_switching(uint16_t keycode, keyrecord_t * record)
+{
+	const int ralt_keycode = get_legacy_keycode_from_ralt_keycode(keycode);
+	if (ralt_keycode)
+	{
+		keycode = ralt_keycode;
+	}
+	if (switch_lang(keycode, record))
+	{
+		is_lang_switched = !is_lang_switched;
+		tap_code16(KC_RSFT);
+		return false; // Skip further processing of this key
+	}
+	else if (
+		is_lang_switched && record->event.pressed &&
+		(record->tap.count || IS_BASIC_KEYCODE(keycode) || is_non_basic_symbol(keycode)))
+	{
+		/* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
+		const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+		const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+		const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
-        if (is_ctrl_on || is_alt_on || is_gui_on) return true;
+		if (is_ctrl_on || is_alt_on || is_gui_on)
+			return true;
 
-        int ru_key = get_ru_sym(keycode);
-        if (!ru_key) return true;
-        tap_code16(ru_key);
-        return false; // Skip further processing of this key
-    } else if (ralt_keycode && record->event.pressed) {
-        tap_code16(keycode);
-        return false; // Skip further processing of this key
-    }
+		int ru_key = get_ru_sym(keycode);
+		if (!ru_key)
+			return true;
+		tap_code16(ru_key);
+		return false; // Skip further processing of this key
+	}
+	else if (ralt_keycode && record->event.pressed)
+	{
+		tap_code16(keycode);
+		return false; // Skip further processing of this key
+	}
 
-    return true; // Process other keycodes normally
+	return true; // Process other keycodes normally
 }
 
-bool process_record_user_for_modern_lang_switching(uint16_t keycode, keyrecord_t *record) {
-    if (switch_lang(keycode, record)) {
-        tap_code16(KC_RSFT);
-        return false; // Skip further processing of this key
-    }
-    return true; // Process other keycodes normally
+bool process_record_user_for_modern_lang_switching(uint16_t keycode, keyrecord_t * record)
+{
+	if (switch_lang(keycode, record))
+	{
+		tap_code16(KC_RSFT);
+		return false; // Skip further processing of this key
+	}
+	return true; // Process other keycodes normally
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == LGC_TOG && record->event.pressed) {
-        is_legacy_lang_switching_mode_enabled = !is_legacy_lang_switching_mode_enabled;
-        if (!is_legacy_lang_switching_mode_enabled) {
-          is_lang_switched = false;
-        }
-        return false;
-    }
+bool process_record_user(uint16_t keycode, keyrecord_t * record)
+{
+	if (keycode == LGC_TOG && record->event.pressed)
+	{
+		is_legacy_lang_switching_mode_enabled = !is_legacy_lang_switching_mode_enabled;
+		if (!is_legacy_lang_switching_mode_enabled)
+		{
+			is_lang_switched = false;
+		}
+		return false;
+	}
 
-    if (is_legacy_lang_switching_mode_enabled) {
-        return process_record_user_for_legacy_lang_switching(keycode, record);
-    } else {
-        return process_record_user_for_modern_lang_switching(keycode, record);
-    }
+	if (is_legacy_lang_switching_mode_enabled)
+	{
+		return process_record_user_for_legacy_lang_switching(keycode, record);
+	}
+	else
+	{
+		return process_record_user_for_modern_lang_switching(keycode, record);
+	}
 }
 
-int get_ru_sym(int eng_sym) {
-    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+int get_ru_sym(int eng_sym)
+{
+	const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
 
-    switch (eng_sym) {
-        case KC_Q: return RU_TSE;
-        case KC_W: return RU_KA;
-        case KC_F: return RU_EL;
-        case LT(REPL, KC_P): return RU_BE;
-        case KC_P: return RU_BE;
-        case KC_B: return RU_SHTI;
-        case KC_J: return RU_HARD;
-        case LT(REPR, KC_L): return RU_YERU;
-        case KC_L: return RU_YERU;
-        case KC_U: return RU_YA;
-        case KC_Y: return RU_E;
-        case KC_QUOTE: return RU_EF;
-        case LGUI_T(KC_A): return RU_ZE;
-        case KC_A: return RU_ZE;
-        case LALT_T(KC_R): return RU_VE;
-        case KC_R: return RU_VE;
-        case LCTL_T(KC_S): return RU_EN;
-        case KC_S: return RU_EN;
-        case LSFT_T(KC_T): return RU_TE;
-        case KC_T: return RU_TE;
-        case RGUI_T(KC_G): return RU_DE;
-        case KC_G: return RU_DE;
-        case RGUI_T(KC_M): return RU_I;
-        case KC_M: return RU_I;
-        case LSFT_T(KC_N): return RU_A;
-        case KC_N: return RU_A;
-        case LCTL_T(KC_E): return RU_O;
-        case KC_E: return RU_O;
-        case LALT_T(KC_I): return RU_IE;
-        case KC_I: return RU_IE;
-        case LGUI_T(KC_O): return RU_ES;
-        case KC_O: return RU_ES;
-        case KC_Z: return RU_HA;
-        case KC_X: return RU_PE;
-        case KC_C: return RU_ER;
-        case KC_D: return RU_EM;
-        case KC_V: return RU_GHE;
-        case KC_K: return RU_YO;
-        case KC_H: return RU_SOFT;
-        case KC_COMMA: return RU_U;
-        case KC_DOT: return IS_LAYER_ON(NUM) ? (is_shift_on ? RU_LPRN : RU_DOT) : RU_YU;
-        case KC_SLSH: return RU_SHA;
+	switch (eng_sym)
+	{
+		// clang-format off
+    case KC_Q: return RU_TSE;
+    case KC_W: return RU_KA;
+    case KC_F: return RU_EL;
+    case LT(REPL, KC_P): return RU_BE;
+    case KC_P: return RU_BE;
+    case KC_B: return RU_SHTI;
+    case KC_J: return RU_HARD;
+    case LT(REPR, KC_L): return RU_YERU;
+    case KC_L: return RU_YERU;
+    case KC_U: return RU_YA;
+    case KC_Y: return RU_E;
+    case KC_QUOTE: return RU_EF;
+    case LGUI_T(KC_A): return RU_ZE;
+    case KC_A: return RU_ZE;
+    case LALT_T(KC_R): return RU_VE;
+    case KC_R: return RU_VE;
+    case LCTL_T(KC_S): return RU_EN;
+    case KC_S: return RU_EN;
+    case LSFT_T(KC_T): return RU_TE;
+    case KC_T: return RU_TE;
+    case RGUI_T(KC_G): return RU_DE;
+    case KC_G: return RU_DE;
+    case RGUI_T(KC_M): return RU_I;
+    case KC_M: return RU_I;
+    case LSFT_T(KC_N): return RU_A;
+    case KC_N: return RU_A;
+    case LCTL_T(KC_E): return RU_O;
+    case KC_E: return RU_O;
+    case LALT_T(KC_I): return RU_IE;
+    case KC_I: return RU_IE;
+    case LGUI_T(KC_O): return RU_ES;
+    case KC_O: return RU_ES;
+    case KC_Z: return RU_HA;
+    case KC_X: return RU_PE;
+    case KC_C: return RU_ER;
+    case KC_D: return RU_EM;
+    case KC_V: return RU_GHE;
+    case KC_K: return RU_YO;
+    case KC_H: return RU_SOFT;
+    case KC_COMMA: return RU_U;
+    case KC_DOT: return IS_LAYER_ON(NUM) ? (is_shift_on ? RU_LPRN : RU_DOT) : RU_YU;
+    case KC_SLSH: return RU_SHA;
 
-        case KC_LBRC: return IS_LAYER_ON(BASE) ? RU_SHCH : is_shift_on ? S(RALT(KC_LPRN)) : RALT(KC_GRV);
-        case KC_RBRC: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_DOT)) : RU_DOT) : is_shift_on ? S(RALT(KC_RPRN)) : S(RALT(KC_GRV));
+    case KC_LBRC: return IS_LAYER_ON(BASE) ? RU_SHCH : is_shift_on ? S(RALT(KC_LPRN)) : RALT(KC_GRV);
+    case KC_RBRC: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_DOT)) : RU_DOT) : is_shift_on ? S(RALT(KC_RPRN)) : S(RALT(KC_GRV));
 
-        case KC_LCBR: return S(RALT(KC_LPRN));
-        case KC_RCBR: return S(RALT(KC_RPRN));
+    case KC_LCBR: return S(RALT(KC_LPRN));
+    case KC_RCBR: return S(RALT(KC_RPRN));
 
-        case KC_SCLN: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_COMM)) : RU_COMM) : RU_SCLN;
-        case KC_COLN: return IS_LAYER_ON(BASE) ? RU_CHE : RU_COLN;
+    case KC_SCLN: return IS_LAYER_ON(BASE) ? (is_shift_on ? S(RALT(KC_COMM)) : RU_COMM) : RU_SCLN;
+    case KC_COLN: return IS_LAYER_ON(BASE) ? RU_CHE : RU_COLN;
 
-        case KC_AT: return RALT(KC_2);
-        case KC_HASH: return RALT(KC_3);
-        case KC_DLR: return RALT(KC_4);
-        case KC_CIRC: return RALT(KC_6);
-        case KC_AMPR: return RALT(KC_7);
+    case KC_AT: return RALT(KC_2);
+    case KC_HASH: return RALT(KC_3);
+    case KC_DLR: return RALT(KC_4);
+    case KC_CIRC: return RALT(KC_6);
+    case KC_AMPR: return RALT(KC_7);
 
-        case KC_BSLS: return is_shift_on ? S(RALT(KC_PIPE)) : KC_BSLS;
-        case KC_PIPE: return S(RALT(KC_PIPE));
+    case KC_BSLS: return is_shift_on ? S(RALT(KC_PIPE)) : KC_BSLS;
+    case KC_PIPE: return S(RALT(KC_PIPE));
 
-        case KC_GRAVE: return is_shift_on ? RU_DQUO : RALT(KC_O);
-        case KC_TILD: return RU_DQUO;
+    case KC_GRAVE: return is_shift_on ? RU_DQUO : RALT(KC_O);
+    case KC_TILD: return RU_DQUO;
 
-        case KC_LPRN: return IS_LAYER_ON(BASE) ? RU_ZHE : KC_LPRN;
-        case KC_RPRN: return IS_LAYER_ON(BASE) ? (is_shift_on ? RU_QUES : RU_SLSH) : KC_RPRN;
-    }
-    return KC_NO;
+    case KC_LPRN: return IS_LAYER_ON(BASE) ? RU_ZHE : KC_LPRN;
+    case KC_RPRN: return IS_LAYER_ON(BASE) ? (is_shift_on ? RU_QUES : RU_SLSH) : KC_RPRN;
+		// clang-format on
+	}
+	return KC_NO;
 }
 
 #define ko_make_ru_sft_num(num) \
-((const key_override_t){                                                                \
-  .trigger_mods      = MOD_MASK_SHIFT,\
-  .layers            = ~NUM,\
-  .suppressed_mods   = MOD_MASK_SHIFT,\
-  .options           = ko_options_default,\
-  .negative_mod_mask = 0,\
-  .custom_action     = NULL,\
-  .context           = NULL,\
-  .trigger           = num,\
-  .replacement       = RALT(num),\
-  .enabled           = &is_lang_switched\
-})
+	((const key_override_t){.trigger_mods = MOD_MASK_SHIFT, \
+							.layers = ~NUM, \
+							.suppressed_mods = MOD_MASK_SHIFT, \
+							.options = ko_options_default, \
+							.negative_mod_mask = 0, \
+							.custom_action = NULL, \
+							.context = NULL, \
+							.trigger = num, \
+							.replacement = RALT(num), \
+							.enabled = &is_lang_switched})
 
 const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
 
@@ -321,9 +352,11 @@ const key_override_t ru_sft_4 = ko_make_ru_sft_num(KC_4);
 const key_override_t ru_sft_6 = ko_make_ru_sft_num(KC_6);
 const key_override_t ru_sft_7 = ko_make_ru_sft_num(KC_7);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
-  &capsword_key_override,
-  &ru_sft_2, &ru_sft_2, &ru_sft_3, &ru_sft_4, &ru_sft_6, &ru_sft_7,
-  NULL
-};
-
+const key_override_t ** key_overrides = (const key_override_t *[]){&capsword_key_override,
+																   &ru_sft_2,
+																   &ru_sft_2,
+																   &ru_sft_3,
+																   &ru_sft_4,
+																   &ru_sft_6,
+																   &ru_sft_7,
+																   NULL};
