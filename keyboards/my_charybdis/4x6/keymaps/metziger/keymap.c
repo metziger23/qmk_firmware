@@ -15,13 +15,20 @@ enum charybdis_keymap_layers {
     REPR,
 };
 
+#define M_KC_LBRC RALT(KC_A)
+#define M_KC_COLN RALT(KC_B)
+#define M_KC_LPRN RALT(KC_C)
+#define M_KC_RBRC RALT(KC_D)
+#define M_KC_SCLN RALT(KC_E)
+#define M_KC_RPRN RALT(KC_F)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-        KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,         KC_MINS,
-        KC_LBRC,    KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      KC_RBRC,
-        KC_COLN,    LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  RGUI_T(KC_G), RGUI_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), KC_SCLN,
-        KC_LPRN,    KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      KC_RPRN,
+        KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,           KC_MINS,
+        M_KC_LBRC,  KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,        M_KC_RBRC,
+        M_KC_COLN,  LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  RGUI_T(KC_G), RGUI_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), M_KC_SCLN,
+        M_KC_LPRN,  KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,        M_KC_RPRN,
                                   LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                                     LSFT(KC_QUOT),  LCTL(KC_6),           LT(FUN,KC_DEL)
   ),
@@ -113,7 +120,6 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 static bool is_legacy_lang_switching_mode_enabled = false;
 static bool is_lang_switched = false;
-static bool lang_switching_started = false;
 int get_ru_sym(int eng_sym);
 
 bool is_non_basic_symbol(uint16_t keycode) {
@@ -153,25 +159,42 @@ bool switch_lang(uint16_t keycode, keyrecord_t *record) {
     && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
 }
 
+/* TODO: change int to uint16_t */
+int get_legacy_keycode_from_ralt_keycode(uint16_t keycode) {
+  switch (keycode) {
+    case M_KC_LBRC: return KC_LBRC;
+    case M_KC_COLN: return KC_COLN;
+    case M_KC_LPRN: return KC_LPRN;
+    case M_KC_RBRC: return KC_RBRC;
+    case M_KC_SCLN: return KC_SCLN;
+    case M_KC_RPRN: return KC_RPRN;
+  }
+  return KC_NO;
+}
+
 bool process_record_user_for_legacy_lang_switching(uint16_t keycode, keyrecord_t *record) {
+    const int ralt_keycode = get_legacy_keycode_from_ralt_keycode(keycode);
+    if (ralt_keycode) {
+        keycode = ralt_keycode;
+    }
     if (switch_lang(keycode, record)) {
-        if (lang_switching_started) {
-            return false;
-        }
         is_lang_switched = !is_lang_switched;
         tap_code16(KC_RSFT);
         return false; // Skip further processing of this key
     } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode) || is_non_basic_symbol(keycode))) {
         /* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
-        const bool is_ctrl_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
-        const bool is_alt_on   = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
-        const bool is_gui_on   = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+        const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+        const bool is_alt_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+        const bool is_gui_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
         if (is_ctrl_on || is_alt_on || is_gui_on) return true;
 
         int ru_key = get_ru_sym(keycode);
         if (!ru_key) return true;
         tap_code16(ru_key);
+        return false; // Skip further processing of this key
+    } else if (ralt_keycode && record->event.pressed) {
+        tap_code16(keycode);
         return false; // Skip further processing of this key
     }
 
@@ -189,6 +212,9 @@ bool process_record_user_for_modern_lang_switching(uint16_t keycode, keyrecord_t
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LGC_TOG && record->event.pressed) {
         is_legacy_lang_switching_mode_enabled = !is_legacy_lang_switching_mode_enabled;
+        if (!is_legacy_lang_switching_mode_enabled) {
+          is_lang_switched = false;
+        }
         return false;
     }
 
