@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [MEDIA] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        LGC_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
         KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_RGUI,  KC_NO,   KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_TRNS,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   OU_AUTO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
     [NAV] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    LGC_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, QK_BOOT,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,   KC_TRNS,
     KC_TRNS, KC_LGUI,  KC_LALT, KC_LCTL, KC_LSFT, KC_RGUI,  CW_TOGG, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS,
     KC_TRNS, KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     //  TODO: update DRAGSCROLL_MODE, make it vertical and horizontal
     [MOUSE] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,      KC_TRNS,
+        LGC_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,      KC_TRNS,
         KC_TRNS, QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,        U_RDO,   U_PST,   U_CPY,           U_CUT,   U_UND,        KC_TRNS,
         KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SNIPING,      KC_BTN3, KC_BTN1, DRGSCRL,         KC_BTN2, SNIPING,      KC_TRNS,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,   KC_BTN4, KC_NO,           KC_NO,   KC_BTN5,      KC_TRNS,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [SYM] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LGC_TOG,
         KC_LCBR, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NO,   KC_NO,   KC_NO,   KC_NO,   QK_BOOT, KC_RCBR,
         KC_TRNS, KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, KC_RGUI,  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS,
         KC_TRNS, KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NUM] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS,         KC_TRNS,       KC_TRNS,          KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS,         KC_TRNS,       KC_TRNS,          LGC_TOG,
         KC_TRNS, KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NO,   KC_NO,           KC_NO,           KC_NO,         QK_BOOT,          KC_TRNS,
         KC_TRNS, KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_RGUI,  LSFT_T(KC_LEFT), LCTL_T(KC_DOWN), LALT_T(KC_UP), LGUI_T(KC_RIGHT), KC_TRNS,
         KC_TRNS, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NO,   KC_NO,           KC_NO,           KC_NO,         KC_NO,            KC_TRNS,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [FUN] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LGC_TOG,
         KC_TRNS, KC_F12,  KC_F7,   KC_F8,   KC_F9,  KC_PSCR, KC_NO,  KC_NO,   KC_NO,   KC_NO,   QK_BOOT, KC_TRNS,
         KC_TRNS, KC_F11,  KC_F4,   KC_F5,   KC_F6,  KC_SCRL, KC_RGUI, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS,
         KC_TRNS, KC_F10,  KC_F1,   KC_F2,   KC_F3,  KC_PAUS, KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_TRNS,
@@ -111,6 +111,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 );
 // clang-format on
 
+static bool is_legacy_lang_switching_mode_enabled = false;
 static bool is_lang_switched = false;
 static bool lang_switching_started = false;
 int get_ru_sym(int eng_sym);
@@ -142,24 +143,29 @@ bool is_non_basic_symbol(uint16_t keycode) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool switch_lang(uint16_t keycode, keyrecord_t *record) {
+  const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
+  const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+  const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+  const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
-    const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
-    const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
-    const bool is_alt_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
-    const bool is_gui_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
+  return record->event.pressed && keycode == LT(NUM,KC_BSPC) && record->tap.count
+    && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
+}
 
-    const bool switch_lang = record->event.pressed && keycode == LT(NUM,KC_BSPC) && record->tap.count
-        && is_shift_on && !is_ctrl_on && !is_alt_on && !is_gui_on;
-
-    if (switch_lang) {
-        if (lang_switching_started) { return false; }
+bool process_record_user_for_legacy_lang_switching(uint16_t keycode, keyrecord_t *record) {
+    if (switch_lang(keycode, record)) {
+        if (lang_switching_started) {
+            return false;
+        }
         is_lang_switched = !is_lang_switched;
         tap_code16(KC_RSFT);
         return false; // Skip further processing of this key
-    } else if (is_lang_switched && record->event.pressed &&
-                (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
-                is_non_basic_symbol(keycode))) {
+    } else if (is_lang_switched && record->event.pressed && (record->tap.count || IS_BASIC_KEYCODE(keycode) || is_non_basic_symbol(keycode))) {
+        /* const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT; */
+        const bool is_ctrl_on  = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;
+        const bool is_alt_on   = (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT;
+        const bool is_gui_on   = (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI;
 
         if (is_ctrl_on || is_alt_on || is_gui_on) return true;
 
@@ -170,6 +176,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true; // Process other keycodes normally
+}
+
+bool process_record_user_for_modern_lang_switching(uint16_t keycode, keyrecord_t *record) {
+    if (switch_lang(keycode, record)) {
+        tap_code16(KC_RSFT);
+        return false; // Skip further processing of this key
+    }
+    return true; // Process other keycodes normally
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == LGC_TOG && record->event.pressed) {
+        is_legacy_lang_switching_mode_enabled = !is_legacy_lang_switching_mode_enabled;
+        return false;
+    }
+
+    if (is_legacy_lang_switching_mode_enabled) {
+        return process_record_user_for_legacy_lang_switching(keycode, record);
+    } else {
+        return process_record_user_for_modern_lang_switching(keycode, record);
+    }
 }
 
 int get_ru_sym(int eng_sym) {
