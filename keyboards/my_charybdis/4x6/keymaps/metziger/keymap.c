@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_lang_switched = !is_lang_switched;
         tap_code16(KC_RSFT);
         return false; // Skip further processing of this key
-    } else if (is_lang_switched && record->event.pressed &&
+    } else if (is_lang_switched &&
                 (record->tap.count || IS_BASIC_KEYCODE(keycode) ||
                 is_non_basic_symbol(keycode))) {
 
@@ -165,7 +165,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         int ru_key = get_ru_sym(keycode);
         if (!ru_key) return true;
-        tap_code16(ru_key);
+
+        if (record->event.pressed) {
+          register_code(ru_key);
+        } else {
+          unregister_code(ru_key);
+        }
+
+        /* tap_code16(ru_key); */
         return false; // Skip further processing of this key
     }
 
