@@ -31,7 +31,6 @@ enum charybdis_keycodes {
     SNIPING_MODE_TOGGLE,
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
-    LEGACY_LANG_SWITCHING_MODE_TOGGLE,
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
@@ -42,7 +41,6 @@ enum charybdis_keycodes {
 #        define SNP_TOG SNIPING_MODE_TOGGLE
 #        define DRGSCRL DRAGSCROLL_MODE
 #        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
-#        define LGC_TOG LEGACY_LANG_SWITCHING_MODE_TOGGLE
 #    endif // !NO_CHARYBDIS_KEYCODES
 
 /** \brief Return the current DPI value for the pointer's default mode. */
