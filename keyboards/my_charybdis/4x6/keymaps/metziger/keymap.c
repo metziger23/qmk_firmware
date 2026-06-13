@@ -13,6 +13,7 @@ enum charybdis_keymap_layers {
     FUN,
     REPL,
     REPR,
+    SCROLL
 };
 
 // clang-format off
@@ -21,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,         KC_2,         KC_3,         KC_4,          KC_5,        KC_6,            KC_7,          KC_8,         KC_9,         KC_0,         KC_MINS,
         KC_LBRC,    KC_Q,         KC_W,         KC_F,         LT(REPL,KC_P), KC_B,        KC_J,            LT(REPR,KC_L), KC_U,         KC_Y,         KC_QUOT,      KC_RBRC,
         KC_COLN,    LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),  RGUI_T(KC_G), RGUI_T(KC_M),     LSFT_T(KC_N),  LCTL_T(KC_E), LALT_T(KC_I), LGUI_T(KC_O), KC_SCLN,
-        KC_LPRN,    KC_Z,         KC_X,         KC_C,         KC_D,          KC_V,        KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      KC_RPRN,
+        KC_LPRN,    KC_Z,         KC_X,         KC_C,         KC_D,       LT(SCROLL,KC_V), KC_K,            KC_H,          KC_COMM,      KC_DOT,       KC_SLSH,      KC_RPRN,
                                   LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     LT(SYM,KC_ENT),  LT(NUM,KC_BSPC),
                                                     LSFT(KC_QUOT),  LCTL(KC_6),           LT(FUN,KC_DEL)
   ),
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MOUSE] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,      KC_TRNS,
         KC_TRNS, QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,        U_RDO,   U_PST,   U_CPY,           U_CUT,   U_UND,        KC_TRNS,
-        KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SNIPING,      MS_BTN3, MS_BTN1, DRGSCRL,         MS_BTN2, SNIPING,      KC_TRNS,
+        KC_TRNS, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SNIPING,      MS_BTN3, MS_BTN1, KC_NO,         MS_BTN2, SNIPING,      KC_TRNS,
         KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,   MS_BTN4, KC_NO,           KC_NO,   MS_BTN5,      KC_TRNS,
                                                 KC_NO, KC_NO, KC_NO, MS_BTN2, MS_BTN1,
                                                 KC_NO, KC_NO,        MS_BTN3
@@ -98,6 +99,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             LT(MEDIA,KC_ESC), LT(NAV,KC_SPC), LT(MOUSE,KC_TAB),     KC_LSFT,  KC_LSFT,
                               LSFT(KC_QUOT),  LCTL(KC_6),           KC_LSFT
     ),
+    [SCROLL] = LAYOUT(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                          KC_TRNS, KC_TRNS, KC_TRNS, DRG_TOG, DRG_TOG,
+                                          KC_TRNS, KC_TRNS,        DRG_TOG
+    ),
 };
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
@@ -143,6 +152,13 @@ bool is_non_basic_symbol(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == LT(SCROLL,KC_V)) {
+        if (dragscroll_mode_toggled) {
+            charybdis_set_pointer_dragscroll_enabled(true);
+        } else {
+            charybdis_set_pointer_dragscroll_enabled(record->event.pressed);
+        }
+    }
 
     const bool is_shift_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT;
     const bool is_ctrl_on = (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL;

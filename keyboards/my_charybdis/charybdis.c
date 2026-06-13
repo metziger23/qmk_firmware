@@ -253,6 +253,8 @@ static void debug_charybdis_config_to_console(charybdis_config_t* config) {
 #    endif // CONSOLE_ENABLE
 }
 
+static bool dragscroll_mode_toggled = false;
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
         debug_charybdis_config_to_console(&g_charybdis_config);
@@ -298,7 +300,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
         case DRAGSCROLL_MODE_TOGGLE:
             if (record->event.pressed) {
-                charybdis_set_pointer_dragscroll_enabled(!charybdis_get_pointer_dragscroll_enabled());
+				dragscroll_mode_toggled = !dragscroll_mode_toggled;
             }
             break;
     }
