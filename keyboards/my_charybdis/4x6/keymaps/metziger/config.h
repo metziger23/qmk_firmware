@@ -51,6 +51,7 @@
 
 #define PERMISSIVE_HOLD
 #define CHORDAL_HOLD
+#define SPECULATIVE_HOLD
 
 // disable split detection - should help with sleeping issues
 #undef SPLIT_USB_DETECT
